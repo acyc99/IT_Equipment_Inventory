@@ -1,0 +1,243 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="../public/css/style.css")
+        title IT Equipment Inventory
+    body 
+        h1 IT Equipment Inventory 
+        form(action='/inventory-entry', method='POST')
+            button(type="button", onclick="resetAll()") Reset 
+            h2 Client Info 
+            p Full Name: 
+                span#fullName 
+            input#hiddenFullName(type="hidden", name="fullName")
+            label First Name: 
+            input#firstName(type="text", name="firstName", placeholder="John", oninput="updateFullName()")
+            label Middle Name: 
+            input#middleName(type="text" name="middleName", oninput="updateFullName()")
+            label Last Name (Surname / Family Name): 
+            input#lastName(type="text", name="lastName", placeholder="Doe", oninput="updateFullName()")
+            label Branch / Section: 
+            input#branchSection(type="text", name="branchSection", placeholder="IT Operations") 
+            label Office Number: 
+            input#officeNumber(type="text", name="officeNumber", placeholder="4-31") 
+            label Telephone Number: 
+            input#phoneNumber(type="tel", name="telNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder="604-000-0000") 
+            label Email: 
+            input#email(type="emial", name="email", placeholder="John.Doe@myCompany.ca")
+
+            h2 IT Equipment Assigned: 
+            label Select the following IT equipment to be assigned: 
+            input#laptop(type="checkbox", name="Laptop", value="Yes", onchange="handleCheckboxSelection()") 
+            label(for="laptop") Laptop 
+            input#monitor(type="checkbox", name="Monitor", value="Yes", onchange="handleCheckboxSelection(); handleRadioSelection()") 
+            label(for="monitor") Monitor(s)
+            input#dockingStation(type="checkbox", name="DockingStation", value="Yes", onchange="handleCheckboxSelection(); notifyDockAndAdaptorSelection()") 
+            label(for="dockingStation") Docking Station 
+            input#adaptor(type="checkbox", name="Adaptor", value="Yes", onchange="handleCheckboxSelection(); notifyDockAndAdaptorSelection()")
+            label(for="adaptor") USB-C to HDMI Adaptor 
+            input#mouse(type="checkbox", name="Mouse", value="Yes", onchange="handleCheckboxSelection()")
+            label(for="mouse") Mouse 
+            input#keyboard(type="checkbox", name="Keyboard", value="Yes", onchange="handleCheckboxSelection()")
+            label(for="keyboard") Keyboard 
+            input#lock(type="checkbox", name="Lock", value="Yes", onchange="handleCheckboxSelection()")
+            label(for="lock") Lock (for laptop/desktop/docking station)
+            input#phone(type="checkbox", name="Phone", value="Yes", onchange="handleCheckboxSelection()")
+            label(for="phone") Cell Phone 
+            input#otherEquipment(type="checkbox", name="OtherEquipment", value="otherEquipment", onchange="handleCheckboxSelection()")
+            label(for="otherEquipment") Other IT Equipment 
+
+            div#standardEquipmentInfoContainer(style="display: none;")
+                h2 Standard IT Equipment 
+                label Work Order Number: 
+                input(type="text", name="ITEquipmentWO", placeholder="WO0000000123456") 
+                label Pick Up Date: 
+                input(type="date", name="ITEquipmentPickUpDate")
+
+            div#laptopInfoContainer(style="display: none;")
+                h3 Laptop Info 
+                label Laptop Asset Tag: 
+                input(type="number", min="0", name="laptopAssetTag")
+                label Laptop Serial Number: 
+                input(type="text", name="laptopSerialNumber")
+                label Laptop Brand: 
+                select#laptopBrand(name="laptopBrand", onchange="inputOtherOption('laptopBrand', 'otherLaptopBrandContainer', 'otherLaptopBrand')")
+                    option(value="Dell") Dell 
+                    option(value="Dynabook") Dynabook 
+                    option(value="HP") HP 
+                    option(value="Other") Other 
+                div#otherLaptopBrandContainer(style="display: none;")
+                    label(for="otherLaptopBrand") Other Laptop Brand: 
+                    input#otherLaptopBrand(type="text", name="otherLaptopBrand")
+                label Laptop Model: 
+                select#laptopModel(name="laptopModel", onchange="inputOtherOption('laptopModel', 'otherLaptopModelContainer', 'otherLaptopModel')")
+                    option(value="Elitebook_G5") Elitebook 745 G5 
+                    option(value="Elitebook_G6") Elitebook 745 G6 
+                    option(value="TECRA_A") Tecra A40-E 
+                    option(value="TECRA_E") Tecra A40-G 
+                    option(value="TECRA_J") Tecra A40-J  
+                    option(value="Other") Other 
+                div#otherLaptopModelContainer(style="display: none;")
+                    label(for="otherLaptopModel") Other Laptop Model: 
+                    input#otherLaptopModel(type="text", name="otherLaptopModel")
+            
+            div#monitorInfoContainer(style="display: none;")
+                h3 # of Monitors 
+                input#oneMonitor(type="radio", name="monitorQuantity", value="1monitor", onchange="handleRadioSelection()") 
+                label(for="oneMonitor") 1 Monitor
+                input#twoMonitors(type="radio", name="monitorQuantity", value="2monitors", onchange="handleRadioSelection()") 
+                label(for="twoMonitors") 2 Monitors 
+
+            div#monitor1InfoContainer(style="display: none;")
+                h4 Monitor #1 Info 
+                label Monitor Asset Tag: 
+                input(type="number", min="0", name="monitor1AssetTag")
+                label Monitor Serial Number: 
+                input(type="text", name="monitor1SerialNumber")
+                label(for="monitor1Brand") Monitor Brand: 
+                select#monitor1Brand(name="monitor1Brand", onchange="inputOtherOption('monitor1Brand', 'otherMonitor1BrandContainer', 'otherMonitor1Brand')")
+                    option(value="Asus") Asus 
+                    option(value="LG") LG 
+                    option(value="Philips") Philips 
+                    option(value="Samsung") Samsung 
+                    option(value="Other") Other 
+                div#otherMonitor1BrandContainer(style="display: none;")
+                    label(for="otherMonitor1BrandContainer") Other Monitor Brand: 
+                    input#otherMonitor1Brand(type="text", name="otherMonitor1Brand")
+                label(for="monitor1Model") Monitor Model:
+                select#monitor1Model(name="monitor1Model",onchange="inputOtherOption('monitor1Model', 'otherMonitor1ModelContainer')")
+                    option(value="24BK55") 24BK55
+                    option(value="B") Brilliance 231B
+                    option(value="P") Brilliance 231P 
+                    option(value="F24T454FQN") F24T454FQN
+                    option(value="SyncMaster") SyncMaster 2230
+                    option(value="Other") Other 
+                div#otherMonitor1ModelContainer(style="display: none;")
+                    label(for="otherMonitor1Model") Other Monitor Model: 
+                    input#otherMonitor1Model(type="text", name="otherMonitor1Model")
+            
+            div#monitor2InfoContainer(style="display: none;")
+                h4 Monitor #2 Info 
+                label Monitor Asset Tag: 
+                input(type="number", min="0", name="monitor2AssetTag")
+                label Monitor Serial Number: 
+                input(type="text", name="monitor2SerialNumber")
+                label(for="monitor2Brand") Monitor Brand: 
+                select#monitor2Brand(name="monitor2Brand", onchange="inputOtherOption('monitor2Brand', 'otherMonitor2BrandContainer', 'otherMonitor2Brand')")
+                    option(value="Asus") Asus 
+                    option(value="LG") LG 
+                    option(value="Philips") Philips 
+                    option(value="Samsung") Samsung 
+                    option(value="Other") Other 
+                div#otherMonitor2BrandContainer(style="display: none;")
+                    label(for="otherMonitor2BrandContainer") Other Monitor Brand: 
+                    input#otherMonitor2Brand(type="text", name="otherMonitor2Brand")
+                label(for="monitor2Model") Monitor Model:
+                select#monitor2Model(name="monitor2Model",onchange="inputOtherOption('monitor2Model', 'otherMonitor2ModelContainer')") 
+                    option(value="24BK55") 24BK55
+                    option(value="B") Brilliance 231B
+                    option(value="P") Brilliance 231P 
+                    option(value="F24T454FQN") F24T454FQN
+                    option(value="SyncMaster") SyncMaster 2230
+                    option(value="Other") Other 
+                div#otherMonitor2ModelContainer(style="display: none;")
+                    label(for="otherMonitor2Model") Other Monitor Model: 
+                    input#otherMonitor2Model(type="text", name="otherMonitor2Model")
+
+            //- h3 Dock OR Adaptor 
+            //- label Select one of the folllowing: 
+            //- input#dockingStation(type="radio", name="dockingStationORAdaptor", value="dockingStation", onchange="handleRadioSelection()") 
+            //- label(for="dockingStation") Docking Station 
+            //- input#adaptor(type="radio", name="dockingStationORAdaptor", value="adaptor", onchange="handleRadioSelection()") 
+            //- label(for="adaptor") USB-C to HDMI Adaptor 
+
+            div#dockingStationInfoContainer(style="display: none;")
+                h3 Docking Station Info 
+                label Docking Station Asset Tag: 
+                input(type="number", min="0", name="dockingStationAssetTag")
+                label(for="dockingStationBrandModel") Docking Station Brand and Model: 
+                select#dockingStationBrandModel(name="dockingStationBrandModel", onchange="inputOtherOption('dockingStationBrandModel', 'otherDockContainer', 'otherDockBrandModel')")
+                    option(value="Dell D6000") Dell D6000
+                    option(value="Dell WD15") Dell WD15
+                    option(value="Dell WD19DC") Dell WD19DC
+                    option(value="HP USB-C Dock G4") HP USB-C Dock G4
+                    option(value="HP USB-C Dock G5") HP USB-C Dock G5
+                    option(value="Targus USB-C") Targus USB-C
+                    option(value="Microsoft Surface Dock") Microsoft Surface Dock
+                    option(value="Other") Other 
+                div#otherDockContainer(style="display: none;")
+                    label(for="otherDockBrandModel") Other Docking Station Brand and Model: 
+                    input#otherDockBrandModel(type="text", name="otherDockBrandModel")
+            
+            div#adaptorInfoContainer(style="display: none;")
+                h3 USB-C to HDMI Adaptor Info 
+                label Adaptor Asset Tag: 
+                input(type="number", min="0", name="adaptorAssetTag")
+                label(for="adaptorBrandModel") Adaptor Brand and Model: 
+                select#adaptorBrandModel(name="adaptorBrandModel", onchange="inputOtherOption('adaptorBrandModel', 'otherAdaptorContainer', 'otherAdaptorBrandModel')")
+                    option(value="Targus") Targus USB-C to HDMI Adaptor 
+                    option(value="Other") Other 
+                div#otherAdaptorContainer(style="display: none;")
+                    label(for="otherDockBrandModel") Other Adaptor Brand and Model: 
+                    input#otherDockBrandModel(type="text", name="otherAdaptorBrandModel")
+
+            div#otherEquipmentInfoContainer(style="display: none;")
+                h3 Other IT Equipment Info 
+                label IT Equipment: 
+                input#ITEquipmentName(type="text", name="ITEquipmentName", oninput="updateEquipName()") 
+                label#ITequipmentNameAT Asset Tag: 
+                input(type="number", min="0", name="equipmentAssetTag") 
+                label#ITequipmentNameSN Serial Number: 
+                input(type="text", name="equipmentSerialNumber")
+                label#ITequipmentNameMB Model and Brand: 
+                input(type="text", name="equipModelBrand")
+
+            div#phoneInfoContainer(style="display: none;")
+                h2 Cell-Phone Assigned 
+                label Work Order Number: 
+                input(type="text", name="PhoneWO", placeholder="WO0000000123456")
+                label Pick Up Date: 
+                input(type="date", name="phonePickUpDate")
+                h3 Cell-Phone Info 
+                label Phone Asset Tag: 
+                input(type="number", min="0", name="phoneAssetTag")
+                label(for="phoneBrand") Phone Brand: 
+                select#phoneBrand(name="phoneBrand", onchange="inputOtherOption('phoneBrand', 'otherPhoneBrandContainer', 'otherPhoneBrand')")
+                    option(value="Apple") Apple 
+                    option(value="Samsung") Samsung 
+                    option(value="Other") Other
+                div#otherPhoneBrandContainer(style="display: none;")
+                    label(for="otherPhoneBrand") Other Phone Brand: 
+                    input#otherPhoneBrand(type="text", name="otherPhoneBrand")
+                label(for="phoneModel") Phone Model: 
+                select#phoneModel(name="phoneModel", onchange="inputOtherOption('phoneModel', 'otherPhoneModelContainer', 'otherPhoneModel')")
+                    option(value="iPhone 12") iPhone 12 
+                    option(value="iPhone SE") iPhone SE
+                    option(value="iPhone 13") iPhone 13 
+                    option(value="iPhone 14") iPhone 14 
+                    option(value="iPhone 14 Pro") iPhone 14 Pro
+                    option(value="Galaxy A11") Galaxy A11 
+                    option(value="Galaxy A12") Galaxy A12 
+                    option(value="Other") Other
+                div#otherPhoneModelContainer(style="display: none;")
+                    label(for="otherPhoneModel") Other Phone Model: 
+                    input#otherPhoneModel(type="text", name="otherPhoneModel")
+                label Phone IMEI: 
+                input(type="number", min="0", name="phoneIMEI")
+                label(for="phoneNumber") Cell-Phone Number: 
+                input#phoneNumber(type="tel", name="phoneNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder="604-000-0000")
+
+            h2 Note / Comment   
+            textarea(id="description", rows="5", cols="50", placeholder="Type any notes here...") 
+            
+            p Click "Submit" to save inventory information to MySQL database and generate a PDF version with its QR code 
+            button(type="submit") Submit 
+
+            //- p Save Information to MySQL Database 
+            //- input(type="submit", name="action", value="Save to Database") 
+            //- p Generate a PDF Inventory Form 
+            //- input(type="submit", name="action", value="Generate a PDF")
+
+        script(src="../public/js/main.js")
