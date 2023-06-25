@@ -1,7 +1,7 @@
 http://localhost:9999/inventory-entry
 
-# IT Equipment Inventory 
-Inspired by 
+# About IT Equipment Inventory Database Project 
+A web application that  
 
 # db-config.js File (Personal Configuration File)
 ``` JavaScript
