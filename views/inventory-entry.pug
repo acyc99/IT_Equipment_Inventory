@@ -40,9 +40,9 @@ html(lang="en")
             label(for="adaptor") USB-C to HDMI Adaptor 
             input#mouse(type="checkbox", name="Mouse", value="Yes", onchange="handleCheckboxSelection()")
             label(for="mouse") Mouse 
-            input#keyboard(type="checkbox", name="Keyboard", value="Yes", onchange="handleCheckboxSelection()")
+            input#keyboard(type="checkbox", name="Keyboard", value="Yes" , onchange="handleCheckboxSelection()")
             label(for="keyboard") Keyboard 
-            input#lock(type="checkbox", name="Lock", value="Yes", onchange="handleCheckboxSelection()")
+            input#lock(type="checkbox", name="Lock", value="Yes" , onchange="handleCheckboxSelection()")
             label(for="lock") Lock (for laptop/desktop/docking station)
             input#phone(type="checkbox", name="Phone", value="Yes", onchange="handleCheckboxSelection()")
             label(for="phone") Cell Phone 
@@ -64,6 +64,7 @@ html(lang="en")
                 input(type="text", name="laptopSerialNumber")
                 label Laptop Brand: 
                 select#laptopBrand(name="laptopBrand", onchange="inputOtherOption('laptopBrand', 'otherLaptopBrandContainer', 'otherLaptopBrand')")
+                    option(value="") 
                     option(value="Dell") Dell 
                     option(value="Dynabook") Dynabook 
                     option(value="HP") HP 
@@ -73,6 +74,7 @@ html(lang="en")
                     input#otherLaptopBrand(type="text", name="otherLaptopBrand")
                 label Laptop Model: 
                 select#laptopModel(name="laptopModel", onchange="inputOtherOption('laptopModel', 'otherLaptopModelContainer', 'otherLaptopModel')")
+                    option(value="") 
                     option(value="Elitebook_G5") Elitebook 745 G5 
                     option(value="Elitebook_G6") Elitebook 745 G6 
                     option(value="TECRA_A") Tecra A40-E 
@@ -98,6 +100,7 @@ html(lang="en")
                 input(type="text", name="monitor1SerialNumber")
                 label(for="monitor1Brand") Monitor Brand: 
                 select#monitor1Brand(name="monitor1Brand", onchange="inputOtherOption('monitor1Brand', 'otherMonitor1BrandContainer', 'otherMonitor1Brand')")
+                    option(value="") 
                     option(value="Asus") Asus 
                     option(value="LG") LG 
                     option(value="Philips") Philips 
@@ -108,6 +111,7 @@ html(lang="en")
                     input#otherMonitor1Brand(type="text", name="otherMonitor1Brand")
                 label(for="monitor1Model") Monitor Model:
                 select#monitor1Model(name="monitor1Model",onchange="inputOtherOption('monitor1Model', 'otherMonitor1ModelContainer')")
+                    option(value="") 
                     option(value="24BK55") 24BK55
                     option(value="B") Brilliance 231B
                     option(value="P") Brilliance 231P 
@@ -126,6 +130,7 @@ html(lang="en")
                 input(type="text", name="monitor2SerialNumber")
                 label(for="monitor2Brand") Monitor Brand: 
                 select#monitor2Brand(name="monitor2Brand", onchange="inputOtherOption('monitor2Brand', 'otherMonitor2BrandContainer', 'otherMonitor2Brand')")
+                    option(value="")
                     option(value="Asus") Asus 
                     option(value="LG") LG 
                     option(value="Philips") Philips 
@@ -136,6 +141,7 @@ html(lang="en")
                     input#otherMonitor2Brand(type="text", name="otherMonitor2Brand")
                 label(for="monitor2Model") Monitor Model:
                 select#monitor2Model(name="monitor2Model",onchange="inputOtherOption('monitor2Model', 'otherMonitor2ModelContainer')") 
+                    option(value="")
                     option(value="24BK55") 24BK55
                     option(value="B") Brilliance 231B
                     option(value="P") Brilliance 231P 
@@ -159,6 +165,7 @@ html(lang="en")
                 input(type="number", min="0", name="dockingStationAssetTag")
                 label(for="dockingStationBrandModel") Docking Station Brand and Model: 
                 select#dockingStationBrandModel(name="dockingStationBrandModel", onchange="inputOtherOption('dockingStationBrandModel', 'otherDockContainer', 'otherDockBrandModel')")
+                    option(value="")
                     option(value="Dell D6000") Dell D6000
                     option(value="Dell WD15") Dell WD15
                     option(value="Dell WD19DC") Dell WD19DC
@@ -177,11 +184,27 @@ html(lang="en")
                 input(type="number", min="0", name="adaptorAssetTag")
                 label(for="adaptorBrandModel") Adaptor Brand and Model: 
                 select#adaptorBrandModel(name="adaptorBrandModel", onchange="inputOtherOption('adaptorBrandModel', 'otherAdaptorContainer', 'otherAdaptorBrandModel')")
+                    option(value="")
                     option(value="Targus") Targus USB-C to HDMI Adaptor 
                     option(value="Other") Other 
                 div#otherAdaptorContainer(style="display: none;")
                     label(for="otherDockBrandModel") Other Adaptor Brand and Model: 
                     input#otherDockBrandModel(type="text", name="otherAdaptorBrandModel")
+
+            div#mouseInfoContainer(style="display: none;")
+                h3 Mouse Available  
+                input#mouseYes(type="radio", name="mouseAvailable", value="Yes", checked) 
+                label(for="mouseAvailable") Yes 
+
+            div#keyboardInfoContainer(style="display: none;")
+                h3 Keyboard Available  
+                input#keyboardYes(type="radio", name="keyboardAvailable", value="Yes", checked) 
+                label(for="keyboardAvailable") Yes 
+
+            div#lockInfoContainer(style="display: none;")
+                h3 Keyboard Available  
+                input#lockYes(type="radio", name="lockAvailable", value="Yes", checked) 
+                label(for="lockAvailable") Yes 
 
             div#otherEquipmentInfoContainer(style="display: none;")
                 h3 Other IT Equipment Info 
@@ -205,6 +228,7 @@ html(lang="en")
                 input(type="number", min="0", name="phoneAssetTag")
                 label(for="phoneBrand") Phone Brand: 
                 select#phoneBrand(name="phoneBrand", onchange="inputOtherOption('phoneBrand', 'otherPhoneBrandContainer', 'otherPhoneBrand')")
+                    option(value="")
                     option(value="Apple") Apple 
                     option(value="Samsung") Samsung 
                     option(value="Other") Other
@@ -213,6 +237,7 @@ html(lang="en")
                     input#otherPhoneBrand(type="text", name="otherPhoneBrand")
                 label(for="phoneModel") Phone Model: 
                 select#phoneModel(name="phoneModel", onchange="inputOtherOption('phoneModel', 'otherPhoneModelContainer', 'otherPhoneModel')")
+                    option(value="")
                     option(value="iPhone 12") iPhone 12 
                     option(value="iPhone SE") iPhone SE
                     option(value="iPhone 13") iPhone 13 

@@ -32,7 +32,10 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true
             }, 
             equip_work_order: DataTypes.STRING,
-            equip_pickup_date: DataTypes.DATE
+            equip_pickup_date: {
+                type: DataTypes.DATE,
+                allowNull: true
+            }
         },
         {
             freezeTableName: true 
@@ -200,7 +203,10 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true
             },
             phone_work_order: DataTypes.STRING,
-            phone_pickup_date: DataTypes.DATE
+            phone_pickup_date: {
+                type: DataTypes.DATE,
+                allowNull: true
+            }
         });
 
     Cell_Phone_WO.belongsTo(User, {

@@ -12,6 +12,9 @@ const other = document.getElementById('otherEquipment');
 // Radio Button Values 
 const oneMonitor = document.getElementById("oneMonitor");
 const twoMonitors = document.getElementById("twoMonitors"); 
+const mouseAvailable = document.getElementById("mouseYes");
+const keyboardAvailable = document.getElementById("keyboardYes");
+const lockAvailable = document.getElementById("lockYes");
 
 // div Containers 
 const monitor1InfoContainer = document.getElementById('monitor1InfoContainer'); 
@@ -21,6 +24,9 @@ const laptopInfoContainer = document.getElementById('laptopInfoContainer');
 const monitorInfoContainer = document.getElementById('monitorInfoContainer'); 
 const dockingStationInfoContainer = document.getElementById('dockingStationInfoContainer'); 
 const adaptorInfoContainer = document.getElementById('adaptorInfoContainer');
+const mouseInfoContainer = document.getElementById('mouseInfoContainer');
+const keyboardInfoContainer = document.getElementById('keyboardInfoContainer');
+const lockInfoContainer = document.getElementById('lockInfoContainer');
 const phoneInfoContainer = document.getElementById('phoneInfoContainer');
 const otherEquipmentInfoContainer = document.getElementById('otherEquipmentInfoContainer'); 
 
@@ -57,8 +63,11 @@ handleCheckboxSelection = () => {
     monitorInfoContainer.style.display = monitor.checked ? "block" : "none"; 
     dockingStationInfoContainer.style.display = dockingStation.checked ? "block" : "none"; 
     adaptorInfoContainer.style.display = adaptor.checked ? "block" : "none";
+    mouseInfoContainer.style.display = mouse.checked ? "block" : "none";
+    keyboardInfoContainer.style.display = keyboard.checked ? "block" : "none";
+    lockInfoContainer.style.display = lock.checked ? "block" : "none";
     phoneInfoContainer.style.display = phone.checked ? "block" : "none";
-    otherEquipmentInfoContainer.style.display = other.checked ? "block" : "none"; 
+    otherEquipmentInfoContainer.style.display = other.checked ? "block" : "none";     
 }
 
 handleRadioSelection = () => {
