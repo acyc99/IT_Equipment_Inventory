@@ -3,7 +3,7 @@ http://localhost:9999/inventory-entry
 # About IT Equipment Inventory Database Project 
 A web application that  
 
-# db-config.js File (Personal Configuration File)
+##### db-config.js File (Personal Configuration File)
 ``` JavaScript
 // Connect to Database 
 module.exports = {
