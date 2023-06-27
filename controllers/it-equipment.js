@@ -139,8 +139,6 @@ module.exports = {
         });
       }
 
-
-
         res.send("Data successfully added to the database!");
       } catch (error) {
         console.error("Error adding data to the database:", error);

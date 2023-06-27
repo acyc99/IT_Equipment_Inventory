@@ -30,6 +30,8 @@ const lockInfoContainer = document.getElementById('lockInfoContainer');
 const phoneInfoContainer = document.getElementById('phoneInfoContainer');
 const otherEquipmentInfoContainer = document.getElementById('otherEquipmentInfoContainer'); 
 
+const checkboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other];
+
 resetAll = () => {
     document.querySelectorAll('[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
     document.querySelectorAll('input[type="checkbox"][name="DockingStation"], input[type="checkbox"][name="Adaptor"]').forEach(checkbox => checkbox.disabled = false);
@@ -56,7 +58,8 @@ updateEquipName = () => {
 
 handleCheckboxSelection = () => { 
     // Requires Global Variables (Checkbox Values and div Containers)   
-    const checkedCount = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other].filter(checkbox => checkbox.checked).length;
+    // const checkedCount = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other].filter(checkbox => checkbox.checked).length;
+    const checkedCount = checkboxes.filter(checkbox => checkbox.checked).length;
     standardEquipmentInfoContainer.style.display = checkedCount >= 1 ? "block" : "none"; 
     
     laptopInfoContainer.style.display = laptop.checked ? "block" : "none"; 
@@ -117,20 +120,124 @@ inputOtherOption = (optionId, containerId, inputId) => {
     }
 }
 
-const phoneNumberInput = document.getElementById('phoneNumber');
-
-phoneNumber.addEventListener("input", () => {
-    const pattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/; 
+formatPhoneNumber = (elementId) => {
+    const phoneNumberInput = document.getElementById(elementId);
     let phoneNumber = phoneNumberInput.value;
+    phoneNumber = phoneNumber.replace(/\D/g, "");
     
-    if (!pattern.test(phoneNumber)) {
-        phoneNumberInput.setCustomValidity("Please input a valid phone number in the format of xxx-xxx-xxxx.");
+    if (phoneNumber.length > 3 && phoneNumber.length <= 6) {
+      let formattedNumber = phoneNumber.replace(/(\d{3})(\d{0,3})/, '$1-$2');
+      phoneNumberInput.value = formattedNumber; 
+    } else if (phoneNumber.length > 6) {
+      let formattedNumber = phoneNumber.replace(/(\d{3})(\d{3})(\d{0,4})/, '$1-$2-$3');
+      phoneNumberInput.value = formattedNumber;
     } else {
-        phoneNumberInput.setCustomValidity(''); 
+        phoneNumberInput.value = phoneNumber;
     }
-    phoneNumberInput.reportValidity();
-}); 
+}
 
+// validateForm = (containerId) => {
+//     const container = document.getElementById(containerId);
+//     const inputs = container.getElementsByClassName('verifyInput'); 
+//     let allFilled = true; 
+
+//     for (let i = 0; i < inputs.length; i++) {
+//         let input = inputs[i];
+
+//         if (input.value.trim() === "") {
+//             allFilled = false; 
+//             input.style.border = "1px solid red"; 
+//         } else {
+//             input.style.border = ""; 
+//         }
+//     }
+
+//     if (!allFilled) {
+//         alert("Please fill in all required fields!");
+//     }
+// }
+
+
+// document.getElementById('formId').addEventListener('click', (e) => {
+//     e.preventDefault(); 
+    
+//     if (laptop.checked && !validateForm('laptopInfoContainer')) {
+//         validateForm(laptopInfoContainer);
+//     }
+// })
+
+validateForm = (containerId) => {
+    const container = document.getElementById(containerId);
+    const inputs = container.getElementsByClassName('verifyInput');
+    const selects = container.getElementsByTagName('select');
+    let allFilled = true;
+
+    for (let i = 0; i < inputs.length; i++) {
+        let input = inputs[i];
+
+        if (input.value.trim() === "") {
+            allFilled = false;
+            input.style.border = "2px solid red";
+        } else {
+            input.style.border = "";
+        }
+    }
+
+    for (let i = 0; i < selects.length; i++) {
+        let select = selects[i];
+    
+        if (select.value.trim() === "") {
+          allFilled = false;
+          select.style.border = "2px solid red";
+        } else if (select.value === "Other") {
+            const verifyOtherInput = select.dataset.otherInput;
+            const otherInput = document.getElementById(verifyOtherInput);
+
+
+            if (otherInput.value.trim() === "") {
+                allFilled = false;
+                otherInput.style.border = "2px solid red";
+            } else {
+                otherInput.style.border = ""; 
+            }
+        } else {
+          select.style.border = "";
+        }
+    }
+
+    if (!allFilled) {
+        alert("Please fill in all required fields!");
+        return false;
+    }
+
+    return true;
+}
+
+document.getElementById('formId').addEventListener('submit', (e) => {
+    
+    if (laptop.checked && !validateForm('laptopInfoContainer')) {
+        e.preventDefault();
+        return; 
+    }
+
+    if (monitor.checked && !validateForm('monitorInfoContainer')) {
+        e.preventDefault();
+        return; 
+    }
+
+
+});
+
+
+
+
+
+// validateCheckbox = (checkbox) => {
+//     const containerId = checkbox.getAttribute("data-container");
+//     if (checkbox.checked) {
+//         validateForm(containerId, checkbox); 
+//     }
+// }
 
 // handleRadioSelection: 
 // const dockingStation = document.getElementById('dockingStation');
@@ -144,3 +251,15 @@ phoneNumber.addEventListener("input", () => {
         //     adaptorInfoContainer.style.display = "block"; 
         //     dockingStationInfoContainer.style.display = "none"; 
         // } 
+
+// phoneNumber.addEventListener("input", () => {
+//         const pattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/; 
+//         let phoneNumber = phoneNumberInput.value;
+    
+//         if (!pattern.test(phoneNumber)) {
+//                 phoneNumberInput.setCustomValidity("Please input a valid phone number in the format of xxx-xxx-xxxx.");
+//         } else {
+//             phoneNumberInput.setCustomValidity(''); 
+//         }
+//         phoneNumberInput.reportValidity();
+// }); 

@@ -7,7 +7,7 @@ html(lang="en")
         title IT Equipment Inventory
     body 
         h1 IT Equipment Inventory 
-        form(action='/inventory-entry', method='POST')
+        form#formId(action='/inventory-entry', method='POST')
             button(type="button", onclick="resetAll()") Reset 
             h2 Client Info 
             p Full Name: 
@@ -24,13 +24,13 @@ html(lang="en")
             label Office Number: 
             input#officeNumber(type="text", name="officeNumber", placeholder="4-31") 
             label Telephone Number: 
-            input#phoneNumber(type="tel", name="telNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder="604-000-0000") 
+            input#telNumber(type="tel", name="telNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('telNumber')") 
             label Email: 
             input#email(type="emial", name="email", placeholder="John.Doe@myCompany.ca")
 
             h2 IT Equipment Assigned: 
             label Select the following IT equipment to be assigned: 
-            input#laptop(type="checkbox", name="Laptop", value="Yes", onchange="handleCheckboxSelection()") 
+            input#laptop(type="checkbox", name="Laptop", value="Yes", onchange="handleCheckboxSelection(); validateForm('laptop')") 
             label(for="laptop") Laptop 
             input#monitor(type="checkbox", name="Monitor", value="Yes", onchange="handleCheckboxSelection(); handleRadioSelection()") 
             label(for="monitor") Monitor(s)
@@ -59,11 +59,11 @@ html(lang="en")
             div#laptopInfoContainer(style="display: none;")
                 h3 Laptop Info 
                 label Laptop Asset Tag: 
-                input(type="number", min="0", name="laptopAssetTag")
+                input.verifyInput(type="number", min="0", name="laptopAssetTag")
                 label Laptop Serial Number: 
                 input(type="text", name="laptopSerialNumber")
                 label Laptop Brand: 
-                select#laptopBrand(name="laptopBrand", onchange="inputOtherOption('laptopBrand', 'otherLaptopBrandContainer', 'otherLaptopBrand')")
+                select#laptopBrand(name="laptopBrand", onchange="inputOtherOption('laptopBrand', 'otherLaptopBrandContainer', 'otherLaptopBrand')", data-other-input="otherLaptopBrand")
                     option(value="") 
                     option(value="Dell") Dell 
                     option(value="Dynabook") Dynabook 
@@ -73,7 +73,7 @@ html(lang="en")
                     label(for="otherLaptopBrand") Other Laptop Brand: 
                     input#otherLaptopBrand(type="text", name="otherLaptopBrand")
                 label Laptop Model: 
-                select#laptopModel(name="laptopModel", onchange="inputOtherOption('laptopModel', 'otherLaptopModelContainer', 'otherLaptopModel')")
+                select#laptopModel(name="laptopModel", onchange="inputOtherOption('laptopModel', 'otherLaptopModelContainer', 'otherLaptopModel')", data-other-input="otherLaptopModel")
                     option(value="") 
                     option(value="Elitebook_G5") Elitebook 745 G5 
                     option(value="Elitebook_G6") Elitebook 745 G6 
@@ -89,7 +89,7 @@ html(lang="en")
                 h3 # of Monitors 
                 input#oneMonitor(type="radio", name="monitorQuantity", value="1monitor", onchange="handleRadioSelection()") 
                 label(for="oneMonitor") 1 Monitor
-                input#twoMonitors(type="radio", name="monitorQuantity", value="2monitors", onchange="handleRadioSelection()") 
+                input#twoMonitors.verifyOtherInput(type="radio", name="monitorQuantity", value="2monitors", onchange="handleRadioSelection()") 
                 label(for="twoMonitors") 2 Monitors 
 
             div#monitor1InfoContainer(style="display: none;")
@@ -252,17 +252,20 @@ html(lang="en")
                 label Phone IMEI: 
                 input(type="number", min="0", name="phoneIMEI")
                 label(for="phoneNumber") Cell-Phone Number: 
-                input#phoneNumber(type="tel", name="phoneNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder="604-000-0000")
+                input#phoneNumber(type="tel", name="phoneNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('phoneNumber')")
 
             h2 Note / Comment   
             textarea(id="description", rows="5", cols="50", placeholder="Type any notes here...") 
             
             p Click "Submit" to save inventory information to MySQL database and generate a PDF version with its QR code 
-            button(type="submit") Submit 
-
-            //- p Save Information to MySQL Database 
-            //- input(type="submit", name="action", value="Save to Database") 
-            //- p Generate a PDF Inventory Form 
-            //- input(type="submit", name="action", value="Generate a PDF")
+            button#submit(type="submit") Submit 
 
         script(src="../public/js/main.js")
+
+//- Draft: 
+//- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+
+//- p Save Information to MySQL Database 
+//- input(type="submit", name="action", value="Save to Database") 
+//- p Generate a PDF Inventory Form 
+//- input(type="submit", name="action", value="Generate a PDF")
