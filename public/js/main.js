@@ -57,8 +57,7 @@ updateEquipName = () => {
 }
 
 handleCheckboxSelection = () => { 
-    // Requires Global Variables (Checkbox Values and div Containers)   
-    // const checkedCount = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other].filter(checkbox => checkbox.checked).length;
+    // Requires Global Variables (Checkbox Values, div Containers, and checkboxes) 
     const checkedCount = checkboxes.filter(checkbox => checkbox.checked).length;
     standardEquipmentInfoContainer.style.display = checkedCount >= 1 ? "block" : "none"; 
     
@@ -70,7 +69,31 @@ handleCheckboxSelection = () => {
     keyboardInfoContainer.style.display = keyboard.checked ? "block" : "none";
     lockInfoContainer.style.display = lock.checked ? "block" : "none";
     phoneInfoContainer.style.display = phone.checked ? "block" : "none";
-    otherEquipmentInfoContainer.style.display = other.checked ? "block" : "none";     
+    otherEquipmentInfoContainer.style.display = other.checked ? "block" : "none"; 
+
+    if (!mouse.checked) {
+        mouse.checked = false;
+        mouseAvailable.value = "No"; 
+    } else {
+        mouse.checked = true; 
+        mouseAvailable.value = "Yes"; 
+    }
+
+    if (!keyboard.checked) {
+        keyboard.checked = false;
+        keyboardAvailable.value = "No";
+    } else {
+        keyboard.checked = true; 
+        keyboardAvailable.value = "Yes"; 
+    }
+
+    if (!lock.checked) {
+        lock.checked = false; 
+        lockAvailable.value = "No"; 
+    } else {
+        lock.checked = true; 
+        lockAvailable.value = "Yes"; 
+    }
 }
 
 handleRadioSelection = () => {
@@ -91,9 +114,9 @@ notifyDockAndAdaptorSelection = () => {
     // Requires Global Variables (Checkbox Values and div Containers)   
     
     // Notify user about 1 of 2 options can be selected, not both 
-    if (dockingStation.checked && adaptor.checked) {
-        alert("User should only be assigned either a docking station or a USB-C to HDMI Adaptor!");
-    }
+    // if (dockingStation.checked && adaptor.checked) {
+    //     alert("User should only be assigned either a docking station or a USB-C to HDMI Adaptor!");
+    // }
     
     // OR Block a checkbox if another checkbox is selected 
     if (adaptor.checked) {
@@ -136,36 +159,6 @@ formatPhoneNumber = (elementId) => {
     }
 }
 
-// validateForm = (containerId) => {
-//     const container = document.getElementById(containerId);
-//     const inputs = container.getElementsByClassName('verifyInput'); 
-//     let allFilled = true; 
-
-//     for (let i = 0; i < inputs.length; i++) {
-//         let input = inputs[i];
-
-//         if (input.value.trim() === "") {
-//             allFilled = false; 
-//             input.style.border = "1px solid red"; 
-//         } else {
-//             input.style.border = ""; 
-//         }
-//     }
-
-//     if (!allFilled) {
-//         alert("Please fill in all required fields!");
-//     }
-// }
-
-
-// document.getElementById('formId').addEventListener('click', (e) => {
-//     e.preventDefault(); 
-    
-//     if (laptop.checked && !validateForm('laptopInfoContainer')) {
-//         validateForm(laptopInfoContainer);
-//     }
-// })
-
 validateForm = (containerId) => {
     const container = document.getElementById(containerId);
     const inputs = container.getElementsByClassName('verifyInput');
@@ -189,17 +182,6 @@ validateForm = (containerId) => {
         if (select.value.trim() === "") {
           allFilled = false;
           select.style.border = "2px solid red";
-        } else if (select.value === "Other") {
-            const verifyOtherInput = select.dataset.otherInput;
-            const otherInput = document.getElementById(verifyOtherInput);
-
-
-            if (otherInput.value.trim() === "") {
-                allFilled = false;
-                otherInput.style.border = "2px solid red";
-            } else {
-                otherInput.style.border = ""; 
-            }
         } else {
           select.style.border = "";
         }
@@ -214,6 +196,14 @@ validateForm = (containerId) => {
 }
 
 document.getElementById('formId').addEventListener('submit', (e) => {
+
+    const workOrderInput = document.getElementById('workOrderInput');
+    if (workOrderInput.value.trim() === "") {
+        workOrderInput.style.border = "2px solid red";
+        e.preventDefault(); 
+    } else {
+        workOrderInput.style.border = "";
+    }
     
     if (laptop.checked && !validateForm('laptopInfoContainer')) {
         e.preventDefault();
@@ -225,6 +215,20 @@ document.getElementById('formId').addEventListener('submit', (e) => {
         return; 
     }
 
+    if (dockingStation.checked && !validateForm('dockingStationInfoContainer')) {
+        e.preventDefault();
+        return; 
+    }
+
+    if (adaptor.checked && !validateForm('adaptorInfoContainer')) {
+        e.preventDefault(); 
+        return; 
+    }
+    
+    if (other.checked && !validateForm('otherEquipmentInfoContainer')) {
+        e.preventDefault();
+        return; 
+    }
 
 });
 
