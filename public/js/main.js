@@ -197,6 +197,19 @@ validateForm = (containerId) => {
 
 document.getElementById('formId').addEventListener('submit', (e) => {
 
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName'); 
+    if (firstName.value.trim () === "") {
+        firstName.style.border = "2px solid red"; 
+    } else {
+        firstName.style.border = "";
+    }
+    if (lastName.value.trim() === "") {
+        lastName.style.border = "2px solid red"; 
+    } else {
+        lastName.style.border = ""; 
+    }
+
     const workOrderInput = document.getElementById('workOrderInput');
     if (workOrderInput.value.trim() === "") {
         workOrderInput.style.border = "2px solid red";
@@ -204,13 +217,20 @@ document.getElementById('formId').addEventListener('submit', (e) => {
     } else {
         workOrderInput.style.border = "";
     }
+
+    const checkedCount = checkboxes.filter(checkbox => checkbox.checked).length;
+    if (checkedCount === 0) {
+        e.preventDefault();
+        alert("Please check at least 1 checkbox");
+        return;
+    }
     
     if (laptop.checked && !validateForm('laptopInfoContainer')) {
         e.preventDefault();
         return; 
     }
 
-    if (monitor.checked && !validateForm('monitorInfoContainer')) {
+    if ((monitor.checked && (!validateForm('monitor1InfoContainer') || !validateForm('monitor2InfoContainer'))) || (monitor.checked && !validateForm('monitor1InfoContainer') && !validateForm('monitor2InfoContainer'))) {
         e.preventDefault();
         return; 
     }
@@ -230,9 +250,19 @@ document.getElementById('formId').addEventListener('submit', (e) => {
         return; 
     }
 
+    const phoneWorkOrderInput = document.getElementById('phoneWorkOrderInput');
+    if (phoneWorkOrderInput.value.trim() === "") {
+        phoneWorkOrderInput.style.border = "2px solid red";
+        e.preventDefault(); 
+    } else {
+        phoneWorkOrderInput.style.border = "";
+    }
+
+    if (phone.checked && !validateForm('phoneInfoContainer')) {
+        e.preventDefault();
+        return; 
+    }
 });
-
-
 
 
 

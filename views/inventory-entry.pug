@@ -87,7 +87,7 @@ html(lang="en")
             
             div#monitorInfoContainer(style="display: none;")
                 h3 # of Monitors 
-                input#oneMonitor(type="radio", name="monitorQuantity", value="1monitor", onchange="handleRadioSelection()") 
+                input#oneMonitor(type="radio", name="monitorQuantity", value="1monitor", onchange="handleRadioSelection()", required) 
                 label(for="oneMonitor") 1 Monitor
                 input#twoMonitors.verifyOtherInput(type="radio", name="monitorQuantity", value="2monitors", onchange="handleRadioSelection()") 
                 label(for="twoMonitors") 2 Monitors 
@@ -95,9 +95,9 @@ html(lang="en")
             div#monitor1InfoContainer(style="display: none;")
                 h4 Monitor #1 Info 
                 label Monitor Asset Tag: 
-                input(type="number", min="0", name="monitor1AssetTag")
+                input.verifyInput(type="number", min="0", name="monitor1AssetTag")
                 label Monitor Serial Number: 
-                input(type="text", name="monitor1SerialNumber")
+                input.verifyInput(type="text", name="monitor1SerialNumber")
                 label(for="monitor1Brand") Monitor Brand: 
                 select#monitor1Brand(name="monitor1Brand", onchange="inputOtherOption('monitor1Brand', 'otherMonitor1BrandContainer', 'otherMonitor1Brand')")
                     option(value="") 
@@ -107,10 +107,10 @@ html(lang="en")
                     option(value="Samsung") Samsung 
                     option(value="Other") Other 
                 div#otherMonitor1BrandContainer(style="display: none;")
-                    label(for="otherMonitor1BrandContainer") Other Monitor Brand: 
+                    label(for="otherMonitor1Brand") Other Monitor Brand: 
                     input#otherMonitor1Brand(type="text", name="otherMonitor1Brand")
                 label(for="monitor1Model") Monitor Model:
-                select#monitor1Model(name="monitor1Model",onchange="inputOtherOption('monitor1Model', 'otherMonitor1ModelContainer')")
+                select#monitor1Model(name="monitor1Model",onchange="inputOtherOption('monitor1Model', 'otherMonitor1ModelContainer', 'otherMonitor1Model')")
                     option(value="") 
                     option(value="24BK55") 24BK55
                     option(value="B") Brilliance 231B
@@ -125,9 +125,9 @@ html(lang="en")
             div#monitor2InfoContainer(style="display: none;")
                 h4 Monitor #2 Info 
                 label Monitor Asset Tag: 
-                input(type="number", min="0", name="monitor2AssetTag")
+                input.verifyInput(type="number", min="0", name="monitor2AssetTag")
                 label Monitor Serial Number: 
-                input(type="text", name="monitor2SerialNumber")
+                input.verifyInput(type="text", name="monitor2SerialNumber")
                 label(for="monitor2Brand") Monitor Brand: 
                 select#monitor2Brand(name="monitor2Brand", onchange="inputOtherOption('monitor2Brand', 'otherMonitor2BrandContainer', 'otherMonitor2Brand')")
                     option(value="")
@@ -140,7 +140,7 @@ html(lang="en")
                     label(for="otherMonitor2BrandContainer") Other Monitor Brand: 
                     input#otherMonitor2Brand(type="text", name="otherMonitor2Brand")
                 label(for="monitor2Model") Monitor Model:
-                select#monitor2Model(name="monitor2Model",onchange="inputOtherOption('monitor2Model', 'otherMonitor2ModelContainer')") 
+                select#monitor2Model(name="monitor2Model",onchange="inputOtherOption('monitor2Model', 'otherMonitor2ModelContainer', 'otherMonitor2Model')") 
                     option(value="")
                     option(value="24BK55") 24BK55
                     option(value="B") Brilliance 231B
@@ -220,12 +220,14 @@ html(lang="en")
             div#phoneInfoContainer(style="display: none;")
                 h2 Cell-Phone Assigned 
                 label Work Order Number: 
-                input(type="text", name="PhoneWO", placeholder="WO0000000123456")
+                input#phoneWorkOrderInput(type="text", name="PhoneWO", placeholder="WO0000000123456")
                 label Pick Up Date: 
                 input(type="date", name="phonePickUpDate")
                 h3 Cell-Phone Info 
                 label Phone Asset Tag: 
-                input(type="number", min="0", name="phoneAssetTag")
+                input.verifyInput(type="number", min="0", name="phoneAssetTag")
+                label Phone Serial Number: 
+                input.verifyInput(type="text", name="phoneSerialNumber")
                 label(for="phoneBrand") Phone Brand: 
                 select#phoneBrand(name="phoneBrand", onchange="inputOtherOption('phoneBrand', 'otherPhoneBrandContainer', 'otherPhoneBrand')")
                     option(value="")
@@ -250,9 +252,9 @@ html(lang="en")
                     label(for="otherPhoneModel") Other Phone Model: 
                     input#otherPhoneModel(type="text", name="otherPhoneModel")
                 label Phone IMEI: 
-                input(type="number", min="0", name="phoneIMEI")
+                input.verifyInput(type="number", min="0", name="phoneIMEI")
                 label(for="phoneNumber") Cell-Phone Number: 
-                input#phoneNumber(type="tel", name="phoneNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('phoneNumber')")
+                input#phoneNumber.verifyInput(type="tel", name="phoneNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('phoneNumber')")
 
             h2 Note / Comment   
             textarea(id="description", rows="5", cols="50", placeholder="Type any notes here...") 
