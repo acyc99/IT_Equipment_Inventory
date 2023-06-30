@@ -17,7 +17,7 @@ html(lang="en")
             input#firstName(type="text", name="firstName", placeholder="John", oninput="updateFullName()")
             label Middle Name: 
             input#middleName(type="text" name="middleName", oninput="updateFullName()")
-            label Last Name (Surname / Family Name): 
+            label Last Name: 
             input#lastName(type="text", name="lastName", placeholder="Doe", oninput="updateFullName()")
             label Branch / Section: 
             input#branchSection(type="text", name="branchSection", placeholder="IT Operations") 
@@ -87,7 +87,7 @@ html(lang="en")
             
             div#monitorInfoContainer(style="display: none;")
                 h3 # of Monitors 
-                input#oneMonitor(type="radio", name="monitorQuantity", value="1monitor", onchange="handleRadioSelection()", required) 
+                input#oneMonitor(type="radio", name="monitorQuantity", value="1monitor", onchange="handleRadioSelection()") 
                 label(for="oneMonitor") 1 Monitor
                 input#twoMonitors.verifyOtherInput(type="radio", name="monitorQuantity", value="2monitors", onchange="handleRadioSelection()") 
                 label(for="twoMonitors") 2 Monitors 

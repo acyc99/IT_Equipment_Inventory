@@ -30,7 +30,9 @@ const lockInfoContainer = document.getElementById('lockInfoContainer');
 const phoneInfoContainer = document.getElementById('phoneInfoContainer');
 const otherEquipmentInfoContainer = document.getElementById('otherEquipmentInfoContainer'); 
 
-const checkboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other];
+const itEquipcheckboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other];
+const checkboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other, phone];
+
 
 resetAll = () => {
     document.querySelectorAll('[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
@@ -58,9 +60,9 @@ updateEquipName = () => {
 
 handleCheckboxSelection = () => { 
     // Requires Global Variables (Checkbox Values, div Containers, and checkboxes) 
-    const checkedCount = checkboxes.filter(checkbox => checkbox.checked).length;
+    const checkedCount = itEquipcheckboxes.filter(checkbox => checkbox.checked).length;
     standardEquipmentInfoContainer.style.display = checkedCount >= 1 ? "block" : "none"; 
-    
+
     laptopInfoContainer.style.display = laptop.checked ? "block" : "none"; 
     monitorInfoContainer.style.display = monitor.checked ? "block" : "none"; 
     dockingStationInfoContainer.style.display = dockingStation.checked ? "block" : "none"; 
@@ -98,6 +100,7 @@ handleCheckboxSelection = () => {
 
 handleRadioSelection = () => {
     // Requires Global Variables (Radio Button Values and div Containers) 
+
     if (monitor.checked && oneMonitor.checked) {
         monitor1InfoContainer.style.display = "block"; 
         monitor2InfoContainer.style.display = "none"; 
@@ -196,26 +199,23 @@ validateForm = (containerId) => {
 }
 
 document.getElementById('formId').addEventListener('submit', (e) => {
-
     const firstName = document.getElementById('firstName');
-    const lastName = document.getElementById('lastName'); 
-    if (firstName.value.trim () === "") {
-        firstName.style.border = "2px solid red"; 
+    const lastName = document.getElementById('lastName');
+
+    if (firstName.value.trim() === "") {
+        firstName.style.border = "2px solid red";
+        alert("First name is required!");
+        e.preventDefault();
     } else {
         firstName.style.border = "";
     }
-    if (lastName.value.trim() === "") {
-        lastName.style.border = "2px solid red"; 
-    } else {
-        lastName.style.border = ""; 
-    }
 
-    const workOrderInput = document.getElementById('workOrderInput');
-    if (workOrderInput.value.trim() === "") {
-        workOrderInput.style.border = "2px solid red";
-        e.preventDefault(); 
+    if (lastName.value.trim() === "") {
+        e.preventDefault();
+        lastName.style.border = "2px solid red";
+        alert("Last name is required!");
     } else {
-        workOrderInput.style.border = "";
+        lastName.style.border = "";
     }
 
     const checkedCount = checkboxes.filter(checkbox => checkbox.checked).length;
@@ -224,56 +224,57 @@ document.getElementById('formId').addEventListener('submit', (e) => {
         alert("Please check at least 1 checkbox");
         return;
     }
-    
-    if (laptop.checked && !validateForm('laptopInfoContainer')) {
-        e.preventDefault();
-        return; 
-    }
 
-    if ((monitor.checked && (!validateForm('monitor1InfoContainer') || !validateForm('monitor2InfoContainer'))) || (monitor.checked && !validateForm('monitor1InfoContainer') && !validateForm('monitor2InfoContainer'))) {
+    const workOrderInput = document.getElementById('workOrderInput');
+    const workOrderInputDisplay = getComputedStyle(workOrderInput).display;
+    if (workOrderInputDisplay === "block" && workOrderInput.value.trim() === "") {
+        workOrderInput.style.border = "2px solid red";
+        alert("Standard IT Equipment work order number is required!");
         e.preventDefault();
-        return; 
-    }
-
-    if (dockingStation.checked && !validateForm('dockingStationInfoContainer')) {
-        e.preventDefault();
-        return; 
-    }
-
-    if (adaptor.checked && !validateForm('adaptorInfoContainer')) {
-        e.preventDefault(); 
-        return; 
+    } else {
+        workOrderInput.style.border = "";
     }
     
-    if (other.checked && !validateForm('otherEquipmentInfoContainer')) {
-        e.preventDefault();
-        return; 
-    }
-
     const phoneWorkOrderInput = document.getElementById('phoneWorkOrderInput');
-    if (phoneWorkOrderInput.value.trim() === "") {
+    if (phone.checked && phoneWorkOrderInput.value.trim() === "") {
         phoneWorkOrderInput.style.border = "2px solid red";
-        e.preventDefault(); 
+        alert("Phone work order number is required!")
+        e.preventDefault();
     } else {
         phoneWorkOrderInput.style.border = "";
     }
 
-    if (phone.checked && !validateForm('phoneInfoContainer')) {
-        e.preventDefault();
-        return; 
+    if (monitor.checked) {
+        if (!oneMonitor.checked && !twoMonitors.checked) {
+            alert("Must select either '1 monitor' or 2 monitors");
+            e.preventDefault();
+        } else if (oneMonitor.checked && !validateForm('monitor1InfoContainer')) {
+            e.preventDefault();
+            return;
+        } else if (twoMonitors.checked && (!validateForm('monitor1InfoContainer') || !validateForm('monitor2InfoContainer'))) {
+            e.preventDefault();
+            return;
+        }
     }
+
+    if (
+        (laptop.checked && !validateForm('laptopInfoContainer')) ||
+        (dockingStation.checked && !validateForm('dockingStationInfoContainer')) ||
+        (adaptor.checked && !validateForm('adaptorInfoContainer')) ||
+        (mouse.checked && !validateForm('mouseInfoContainer')) ||
+        (keyboard.checked && !validateForm('keyboardInfoContainer')) ||
+        (lock.checked && !validateForm('lockInfoContainer')) ||
+        (phone.checked && !validateForm('phoneInfoContainer')) ||
+        (other.checked && !validateForm('otherEquipmentInfoContainer'))
+        ) {
+            e.preventDefault();
+            return;
+        } 
 });
 
 
 
-// validateCheckbox = (checkbox) => {
-//     const containerId = checkbox.getAttribute("data-container");
-//     if (checkbox.checked) {
-//         validateForm(containerId, checkbox); 
-//     }
-// }
-
-// handleRadioSelection: 
+// handleRadioSelection for Docking Station OR Adaptor: 
 // const dockingStation = document.getElementById('dockingStation');
 // const adaptor = document.getElementById('adaptor'); 
 // const dockingStationInfoContainer = document.getElementById('dockingStationInfoContainer'); 
