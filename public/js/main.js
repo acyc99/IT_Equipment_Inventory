@@ -63,6 +63,8 @@ handleCheckboxSelection = () => {
     const checkedCount = itEquipcheckboxes.filter(checkbox => checkbox.checked).length;
     standardEquipmentInfoContainer.style.display = checkedCount >= 1 ? "block" : "none"; 
 
+    const allowNull = checkedCount > 0 ? false : true; 
+    
     laptopInfoContainer.style.display = laptop.checked ? "block" : "none"; 
     monitorInfoContainer.style.display = monitor.checked ? "block" : "none"; 
     dockingStationInfoContainer.style.display = dockingStation.checked ? "block" : "none"; 
@@ -72,30 +74,20 @@ handleCheckboxSelection = () => {
     lockInfoContainer.style.display = lock.checked ? "block" : "none";
     phoneInfoContainer.style.display = phone.checked ? "block" : "none";
     otherEquipmentInfoContainer.style.display = other.checked ? "block" : "none"; 
-
-    if (!mouse.checked) {
-        mouse.checked = false;
-        mouseAvailable.value = "No"; 
-    } else {
-        mouse.checked = true; 
-        mouseAvailable.value = "Yes"; 
-    }
-
-    if (!keyboard.checked) {
-        keyboard.checked = false;
-        keyboardAvailable.value = "No";
-    } else {
-        keyboard.checked = true; 
-        keyboardAvailable.value = "Yes"; 
-    }
-
-    if (!lock.checked) {
-        lock.checked = false; 
-        lockAvailable.value = "No"; 
-    } else {
-        lock.checked = true; 
-        lockAvailable.value = "Yes"; 
-    }
+    
+    mouse.checked = mouse.checked ? true : false; 
+    mouseAvailable.value = mouse.checked ? "Yes" : "No"; 
+    
+    keyboard.checked = keyboard.checked ? true : false; 
+    keyboardAvailable.value = keyboard.checked ? "Yes" : "No"; 
+    
+    lock.checked = lock.checked ? true : false; 
+    lockAvailable.value = lock.checked ? "Yes" : "No"; 
+    
+    
+    
+    
+    return allowNull;
 }
 
 handleRadioSelection = () => {
@@ -271,30 +263,3 @@ document.getElementById('formId').addEventListener('submit', (e) => {
             return;
         } 
 });
-
-
-
-// handleRadioSelection for Docking Station OR Adaptor: 
-// const dockingStation = document.getElementById('dockingStation');
-// const adaptor = document.getElementById('adaptor'); 
-// const dockingStationInfoContainer = document.getElementById('dockingStationInfoContainer'); 
-// const adaptorInfoContainer = document.getElementById('adaptorInfoContainer');
-// if (dockingStation.checked) {
-    //         dockingStationInfoContainer.style.display = "block"; 
-    //         adaptorInfoContainer.style.display = "none"; 
-    //     } else if (adaptor.checked) {
-        //     adaptorInfoContainer.style.display = "block"; 
-        //     dockingStationInfoContainer.style.display = "none"; 
-        // } 
-
-// phoneNumber.addEventListener("input", () => {
-//         const pattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/; 
-//         let phoneNumber = phoneNumberInput.value;
-    
-//         if (!pattern.test(phoneNumber)) {
-//                 phoneNumberInput.setCustomValidity("Please input a valid phone number in the format of xxx-xxx-xxxx.");
-//         } else {
-//             phoneNumberInput.setCustomValidity(''); 
-//         }
-//         phoneNumberInput.reportValidity();
-// }); 

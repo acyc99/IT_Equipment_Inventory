@@ -1,6 +1,6 @@
 // Save IT Inventory Data to Database 
 
-const { models: { User, IT_Equip_WO, Laptop, Monitor, Docking_Station, Adaptor, Mouse, Keyboard, Lock, Other_Equipment, Cell_Phone_WO, Cell_Phone } } = require('../models');
+const { models: { User, IT_Equip_WO, Laptop, Monitor, Docking_Station, Adaptor, Mouse, Keyboard, Lock, Other_Equipment, Cell_Phone_WO, Cell_Phone, Note } } = require('../models');
 
 module.exports = {
   saveDataToDB: async (req, res) => {
@@ -15,7 +15,8 @@ module.exports = {
             mouseAvailable, keyboardAvailable, lockAvailable,
             ITEquipmentName, equipmentAssetTag, equipmentSerialNumber, equipModelBrand,
             PhoneWO, phonePickUpDate, 
-            phoneAssetTag, phoneBrand, otherPhoneBrand, phoneModel, otherPhoneModel, phoneIMEI, phoneNumber
+            phoneAssetTag, phoneBrand, otherPhoneBrand, phoneModel, otherPhoneModel, phoneIMEI, phoneNumber,
+            notes
           } = req.body;
     
     if (firstName && lastName) {
@@ -31,7 +32,6 @@ module.exports = {
           email: email
         });
 
-        let itEquipmentWO; 
         let cellPhoneWO;
 
         if (ITEquipmentWO) {
@@ -39,21 +39,13 @@ module.exports = {
   
           itEquipmentWO = await IT_Equip_WO.create({
             user_id: users.user_id,
-            equip_work_order: ITEquipmentWO,
+            equip_work_order: ITEquipmentWO ?? null,
             equip_pickup_date: itPickUpDate
           });
         }
 
-        if (PhoneWO) {
-          const cellPickUpDate = phonePickUpDate ? new Date(phonePickUpDate) : null;
-  
-          cellPhoneWO = await Cell_Phone_WO.create({
-            user_id: users.user_id,
-            phone_work_order: PhoneWO, 
-            phone_pickup_date: cellPickUpDate
-          });
-        }
-
+        const itEquipWO = itEquipmentWO.equip_work_order; 
+        
         if (laptopAssetTag) {
           const laptops = await Laptop.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
@@ -77,7 +69,7 @@ module.exports = {
             other_monitor_model: otherMonitor1Model
           });
         }
-
+        
         if (monitor2AssetTag) {
           const monitors2 = await Monitor.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
@@ -89,7 +81,7 @@ module.exports = {
             other_monitor_model: otherMonitor2Model
           });
         }
-
+        
         if (dockingStationAssetTag) {
           const dockStations = await Docking_Station.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
@@ -107,30 +99,30 @@ module.exports = {
             other_adaptor_brand_model: otherAdaptorBrandModel
           });
         }
-
-        if (mouseAvailable) {
+        
+        if (itEquipWO != null) {
           const mice = await Mouse.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
             mouse_available: mouseAvailable  
           });
         }
-
-      if (keyboardAvailable) {
-        const keyboards = Keyboard.create({
-          it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-          keyboard_available: keyboardAvailable
-        });
+        
+        if (itEquipWO != null) {
+          const keyboards = await Keyboard.create({
+            it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+            keyboard_available: keyboardAvailable
+          });
+        }
+        
+        if (itEquipWO != null) {
+          const locks = await Lock.create({
+            it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+            lock_available: lockAvailable
+          });
       }
-
-      if (lockAvailable) {
-        const locks = Lock.create({
-          it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-          lock_available: lockAvailable
-        });
-      }
-
+      
       if (ITEquipmentName) {
-        const otherEquips = Other_Equipment.create({
+        const otherEquips = await Other_Equipment.create({
           it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
           other_equip_name: ITEquipmentName,
           other_equip_asset_tag: equipmentAssetTag,
@@ -139,36 +131,43 @@ module.exports = {
         });
       }
 
-        res.send("Data successfully added to the database!");
-      } catch (error) {
+      if (PhoneWO) {
+        const cellPickUpDate = phonePickUpDate ? new Date(phonePickUpDate) : null;
+
+        cellPhoneWO = await Cell_Phone_WO.create({
+          user_id: users.user_id,
+          phone_work_order: PhoneWO, 
+          phone_pickup_date: cellPickUpDate
+        });
+      }
+      
+      if (phoneAssetTag) {
+        const phones = await Cell_Phone.create({
+          phone_wo_id: cellPhoneWO.phone_wo_id,
+          phone_asset_tag: phoneAssetTag,
+          phone_imei: phoneIMEI,
+          phone_no: phoneNumber,
+          phone_brand: phoneBrand,
+          phone_model: phoneModel,
+          other_phone_brand: otherPhoneBrand,
+          other_phone_model: otherPhoneModel
+        })
+      }
+      
+      if (Note) {
+        const comment = await Note.create({
+          user_id: users.user_id,
+          note_info: notes 
+        })
+      }
+      
+      res.send("Data successfully added to the database!");
+    } catch (error) {
         console.error("Error adding data to the database:", error);
-        res.status(500).send("An error occurred while adding data to the database.");
+        res.status(500).send(`An error occurred while adding data to the database. ${error}`);
       }
     } else {
       res.send("Not added to the database!");
     }
   },
 };
-
-
-// module.exports = {
-    
-//     saveDatatoDB: async (req, res) => {
-//         // console.log(req.body); 
-//         if (req.body.firstName && req.body.lastName) {
-//             const {firstName, middleName, lastName, branchSection, officeNumber, telNumber, email} = req.body;
-//             await User.create({
-//                 firstName, 
-//                 middleName,
-//                 lastName,
-//                 branchSection,
-//                 officeNumber, 
-//                 telNumber, 
-//                 email
-//             }); 
-//             res.send("Data successfully added to the database!")
-//         } else {
-//             res.send("Not added to the database!"); 
-//         }
-//     },
-// }; 

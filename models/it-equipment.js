@@ -1,4 +1,7 @@
 // Database Table Format 
+// import { handleCheckboxSelection } from '../public/js/main'
+// const { handleCheckboxSelection } = require('../public/js/main') 
+// const allowNull = handleCheckboxSelection();
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
@@ -31,7 +34,10 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true, 
                 autoIncrement: true
             }, 
-            equip_work_order: DataTypes.STRING,
+            equip_work_order: {
+                type: DataTypes.STRING,
+                allowNull: true // 
+            },
             equip_pickup_date: {
                 type: DataTypes.DATE,
                 allowNull: true
@@ -210,8 +216,8 @@ module.exports = (sequelize, DataTypes) => {
         });
 
     Cell_Phone_WO.belongsTo(User, {
-        foreignKey: 'user_id', // Specify the foreign key column name
-        onDelete: 'CASCADE' // Deletion behavior (optional)
+        foreignKey: 'user_id', 
+        onDelete: 'CASCADE' 
     });
 
     const Cell_Phone = sequelize.define(
@@ -231,10 +237,27 @@ module.exports = (sequelize, DataTypes) => {
             other_phone_model: DataTypes.STRING
         });
 
-    Cell_Phone.belongsTo(User, {
+    Cell_Phone.belongsTo(Cell_Phone_WO, {
         foreignKey: 'phone_wo_id', 
         onDelete: 'CASCADE' 
     });
 
-    return {User, IT_Equip_WO, Laptop, Monitor, Docking_Station, Adaptor, Mouse, Keyboard, Lock, Other_Equipment, Cell_Phone_WO, Cell_Phone}; 
+    const Note = sequelize.define(
+        'notes',
+        {
+            note_id: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            },
+            note_info: DataTypes.STRING
+        }
+    )
+
+    Note.belongsTo(User, {
+        foreignKey: 'user_id', // Specify the foreign key column name
+        onDelete: 'CASCADE' // Deletion behavior (optional)
+    });
+
+    return {User, IT_Equip_WO, Laptop, Monitor, Docking_Station, Adaptor, Mouse, Keyboard, Lock, Other_Equipment, Cell_Phone_WO, Cell_Phone, Note}; 
 }; 

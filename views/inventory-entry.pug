@@ -257,7 +257,7 @@ html(lang="en")
                 input#phoneNumber.verifyInput(type="tel", name="phoneNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('phoneNumber')")
 
             h2 Note / Comment   
-            textarea(id="description", rows="5", cols="50", placeholder="Type any notes here...") 
+            textarea(id="description", rows="5", cols="50", placeholder="Type any notes here...", name="notes") 
             
             p Click "Submit" to save inventory information to MySQL database and generate a PDF version with its QR code 
             button#submit(type="submit") Submit 
