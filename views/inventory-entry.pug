@@ -9,45 +9,55 @@ html(lang="en")
         h1 IT Equipment Inventory 
         form#formId(action='/inventory-entry', method='POST')
             button(type="button", onclick="resetAll()") Reset 
-            h2 Client Info 
-            p Full Name: 
-                span#fullName 
-            input#hiddenFullName(type="hidden", name="fullName")
-            label First Name: 
-            input#firstName(type="text", name="firstName", placeholder="John", oninput="updateFullName()")
-            label Middle Name: 
-            input#middleName(type="text" name="middleName", oninput="updateFullName()")
-            label Last Name: 
-            input#lastName(type="text", name="lastName", placeholder="Doe", oninput="updateFullName()")
-            label Branch / Section: 
-            input#branchSection(type="text", name="branchSection", placeholder="IT Operations") 
-            label Office Number: 
-            input#officeNumber(type="text", name="officeNumber", placeholder="4-31") 
-            label Telephone Number: 
-            input#telNumber(type="tel", name="telNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('telNumber')") 
-            label Email: 
-            input#email(type="emial", name="email", placeholder="John.Doe@myCompany.ca")
+            div#clientInfoContainer
+                h2 Client Info 
+                p Full Name: 
+                    span#fullName 
+                input#hiddenFullName(type="hidden", name="fullName")
+                div#fullNameContainer
+                    label First Name: 
+                    input#firstName(type="text", name="firstName", placeholder="John", oninput="updateFullName()")
+                    label Middle Name: 
+                    input#middleName(type="text" name="middleName", oninput="updateFullName()")
+                    label Last Name: 
+                    input#lastName(type="text", name="lastName", placeholder="Doe", oninput="updateFullName()")
+                div#companyInfoContainer
+                    label Branch / Section: 
+                    input#branchSection(type="text", name="branchSection", placeholder="IT Operations") 
+                    label Office Number: 
+                    input#officeNumber(type="text", name="officeNumber", placeholder="4-31") 
+                div#employeeContactInfoContainer
+                    label Telephone Number: 
+                    input#telNumber(type="tel", name="telNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('telNumber')") 
+                    label Email: 
+                    input#email(type="emial", name="email", placeholder="John.Doe@myCompany.ca")
 
-            h2 IT Equipment Assigned: 
-            label Select the following IT equipment to be assigned: 
-            input#laptop(type="checkbox", name="Laptop", value="Yes", onchange="handleCheckboxSelection(); validateForm('laptop')") 
-            label(for="laptop") Laptop 
-            input#monitor(type="checkbox", name="Monitor", value="Yes", onchange="handleCheckboxSelection(); handleRadioSelection(); validateForm('monitor')") 
-            label(for="monitor") Monitor(s)
-            input#dockingStation(type="checkbox", name="DockingStation", value="Yes", onchange="handleCheckboxSelection(); notifyDockAndAdaptorSelection(); validateForm('dockingStation')") 
-            label(for="dockingStation") Docking Station 
-            input#adaptor(type="checkbox", name="Adaptor", value="Yes", onchange="handleCheckboxSelection(); notifyDockAndAdaptorSelection(); validateForm('adaptor')")
-            label(for="adaptor") USB-C to HDMI Adaptor 
-            input#mouse(type="checkbox", name="Mouse", value="Yes", onchange="handleCheckboxSelection(); validateForm('mouse')")
-            label(for="mouse") Mouse 
-            input#keyboard(type="checkbox", name="Keyboard", value="Yes" , onchange="handleCheckboxSelection(); validateForm('keyboard')")
-            label(for="keyboard") Keyboard 
-            input#lock(type="checkbox", name="Lock", value="Yes" , onchange="handleCheckboxSelection(); validateForm('lock')")
-            label(for="lock") Lock (for laptop/desktop/docking station)
-            input#phone(type="checkbox", name="Phone", value="Yes", onchange="handleCheckboxSelection(); validateForm('phone')")
-            label(for="phone") Cell Phone 
-            input#otherEquipment(type="checkbox", name="OtherEquipment", value="otherEquipment", onchange="handleCheckboxSelection(); validateForm('otherEquipment')")
-            label(for="otherEquipment") Other IT Equipment 
+            div#ITEquipSummaryContainer
+                h2 IT Equipment Assigned: 
+                p Select the following IT equipment to be assigned: 
+                div#checkboxesContainer
+                    div.checkbox-row
+                        input#laptop(type="checkbox", name="Laptop", value="Yes", onchange="handleCheckboxSelection(); validateForm('laptop')") 
+                        label(for="laptop") Laptop 
+                        input#monitor(type="checkbox", name="Monitor", value="Yes", onchange="handleCheckboxSelection(); handleRadioSelection(); validateForm('monitor')") 
+                        label(for="monitor") Monitor(s)
+                    div.checkbox-row
+                        input#dockingStation(type="checkbox", name="DockingStation", value="Yes", onchange="handleCheckboxSelection(); notifyDockAndAdaptorSelection(); validateForm('dockingStation')") 
+                        label(for="dockingStation") Docking Station 
+                        input#adaptor(type="checkbox", name="Adaptor", value="Yes", onchange="handleCheckboxSelection(); notifyDockAndAdaptorSelection(); validateForm('adaptor')")
+                        label(for="adaptor") USB-C to HDMI Adaptor 
+                    div.checkbox-row
+                        input#mouse(type="checkbox", name="Mouse", value="Yes", onchange="handleCheckboxSelection(); validateForm('mouse')")
+                        label(for="mouse") Mouse 
+                        input#keyboard(type="checkbox", name="Keyboard", value="Yes" , onchange="handleCheckboxSelection(); validateForm('keyboard')")
+                        label(for="keyboard") Keyboard 
+                        input#lock(type="checkbox", name="Lock", value="Yes" , onchange="handleCheckboxSelection(); validateForm('lock')")
+                        label(for="lock") Lock 
+                    div.checkbox-row
+                        input#phone(type="checkbox", name="Phone", value="Yes", onchange="handleCheckboxSelection(); validateForm('phone')")
+                        label(for="phone") Cell Phone 
+                        input#otherEquipment(type="checkbox", name="OtherEquipment", value="otherEquipment", onchange="handleCheckboxSelection(); validateForm('otherEquipment')")
+                        label(for="otherEquipment") Other IT Equipment 
 
             div#standardEquipmentInfoContainer(style="display: none;")
                 h2 Standard IT Equipment 
