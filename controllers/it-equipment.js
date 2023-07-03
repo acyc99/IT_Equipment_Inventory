@@ -32,6 +32,8 @@ module.exports = {
           email: email
         });
 
+        let itEquipmentWO; 
+        // let itEquipWO = itEquipmentWO.it_equip_wo_id; 
         let cellPhoneWO;
 
         if (ITEquipmentWO) {
@@ -39,12 +41,11 @@ module.exports = {
   
           itEquipmentWO = await IT_Equip_WO.create({
             user_id: users.user_id,
-            equip_work_order: ITEquipmentWO ?? null,
+            equip_work_order: ITEquipmentWO,
             equip_pickup_date: itPickUpDate
           });
         }
 
-        const itEquipWO = itEquipmentWO.equip_work_order; 
         
         if (laptopAssetTag) {
           const laptops = await Laptop.create({
@@ -100,21 +101,21 @@ module.exports = {
           });
         }
         
-        if (itEquipWO != null) {
+        if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
           const mice = await Mouse.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
             mouse_available: mouseAvailable  
           });
         }
         
-        if (itEquipWO != null) {
+        if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
           const keyboards = await Keyboard.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
             keyboard_available: keyboardAvailable
           });
         }
         
-        if (itEquipWO != null) {
+        if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
           const locks = await Lock.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
             lock_available: lockAvailable
@@ -154,7 +155,7 @@ module.exports = {
         })
       }
       
-      if (Note) {
+      if (notes && notes.trim() !== "") {
         const comment = await Note.create({
           user_id: users.user_id,
           note_info: notes 

@@ -61,10 +61,16 @@ updateEquipName = () => {
 handleCheckboxSelection = () => { 
     // Requires Global Variables (Checkbox Values, div Containers, and checkboxes) 
     const checkedCount = itEquipcheckboxes.filter(checkbox => checkbox.checked).length;
+    // console.log(checkedCount);
     standardEquipmentInfoContainer.style.display = checkedCount >= 1 ? "block" : "none"; 
 
-    const allowNull = checkedCount > 0 ? false : true; 
-    
+    const allowNull = checkedCount <= 0 ? true : false; // If > 0 = allowNull is False and if <= 0 = allowBull is True 
+    if (allowNull) {
+        const workOrderInput = document.getElementById('workOrderInput'); 
+        workOrderInput.value = ""; 
+    } 
+    // console.log(workOrderInput.value);
+
     laptopInfoContainer.style.display = laptop.checked ? "block" : "none"; 
     monitorInfoContainer.style.display = monitor.checked ? "block" : "none"; 
     dockingStationInfoContainer.style.display = dockingStation.checked ? "block" : "none"; 
@@ -83,11 +89,8 @@ handleCheckboxSelection = () => {
     
     lock.checked = lock.checked ? true : false; 
     lockAvailable.value = lock.checked ? "Yes" : "No"; 
-    
-    
-    
-    
-    return allowNull;
+
+    return allowNull; 
 }
 
 handleRadioSelection = () => {
@@ -159,10 +162,10 @@ validateForm = (containerId) => {
     const inputs = container.getElementsByClassName('verifyInput');
     const selects = container.getElementsByTagName('select');
     let allFilled = true;
-
+    
     for (let i = 0; i < inputs.length; i++) {
         let input = inputs[i];
-
+        
         if (input.value.trim() === "") {
             allFilled = false;
             input.style.border = "2px solid red";
@@ -175,25 +178,25 @@ validateForm = (containerId) => {
         let select = selects[i];
     
         if (select.value.trim() === "") {
-          allFilled = false;
-          select.style.border = "2px solid red";
+            allFilled = false;
+            select.style.border = "2px solid red";
         } else {
-          select.style.border = "";
+            select.style.border = "";
         }
     }
-
+    
     if (!allFilled) {
         alert("Please fill in all required fields!");
         return false;
     }
-
+    
     return true;
 }
 
 document.getElementById('formId').addEventListener('submit', (e) => {
     const firstName = document.getElementById('firstName');
     const lastName = document.getElementById('lastName');
-
+    
     if (firstName.value.trim() === "") {
         firstName.style.border = "2px solid red";
         alert("First name is required!");
@@ -201,7 +204,7 @@ document.getElementById('formId').addEventListener('submit', (e) => {
     } else {
         firstName.style.border = "";
     }
-
+    
     if (lastName.value.trim() === "") {
         e.preventDefault();
         lastName.style.border = "2px solid red";
@@ -209,17 +212,20 @@ document.getElementById('formId').addEventListener('submit', (e) => {
     } else {
         lastName.style.border = "";
     }
-
+    
     const checkedCount = checkboxes.filter(checkbox => checkbox.checked).length;
     if (checkedCount === 0) {
         e.preventDefault();
         alert("Please check at least 1 checkbox");
         return;
     }
-
+    
     const workOrderInput = document.getElementById('workOrderInput');
     const workOrderInputDisplay = getComputedStyle(workOrderInput).display;
-    if (workOrderInputDisplay === "block" && workOrderInput.value.trim() === "") {
+    // console.log(workOrderInputDisplay);  
+    const allowNull = handleCheckboxSelection(); // From handleCheckboxSelection() function 
+    console.log(allowNull);
+    if (workOrderInputDisplay === "inline-block" && !allowNull && workOrderInput.value.trim() === "") {
         workOrderInput.style.border = "2px solid red";
         alert("Standard IT Equipment work order number is required!");
         e.preventDefault();

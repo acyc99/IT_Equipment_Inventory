@@ -1,7 +1,6 @@
 // Database Table Format 
-// import { handleCheckboxSelection } from '../public/js/main'
 // const { handleCheckboxSelection } = require('../public/js/main') 
-// const allowNull = handleCheckboxSelection();
+// const nullDecision = handleCheckboxSelection();
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
@@ -36,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
             }, 
             equip_work_order: {
                 type: DataTypes.STRING,
-                allowNull: true // 
+                allowNull: true 
             },
             equip_pickup_date: {
                 type: DataTypes.DATE,
@@ -73,6 +72,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Laptop.belongsTo(IT_Equip_WO, {
         foreignKey: 'it_equip_wo_id',
+        // allowNull: true, 
         onDelete: 'CASCADE'
     }); 
     
@@ -94,6 +94,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Monitor.belongsTo(IT_Equip_WO, {
         foreignKey: 'it_equip_wo_id',
+        // allowNull: true, 
         onDelete: 'CASCADE'
     });
 
@@ -112,6 +113,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Docking_Station.belongsTo(IT_Equip_WO, {
         foreignKey: 'it_equip_wo_id',
+        // allowNull: true, 
         onDelete: 'CASCADE'
     });
 
@@ -130,6 +132,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Adaptor.belongsTo(IT_Equip_WO, {
         foreignKey: 'it_equip_wo_id',
+        // allowNull: true, 
         onDelete: 'CASCADE'
     });
 
@@ -146,6 +149,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Mouse.belongsTo(IT_Equip_WO, {
         foreignKey: 'it_equip_wo_id',
+        // allowNull: true, 
         onDelete: 'CASCADE'
     });
 
@@ -162,6 +166,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Keyboard.belongsTo(IT_Equip_WO, {
         foreignKey: 'it_equip_wo_id',
+        // allowNull: true, 
         onDelete: 'CASCADE'
     });
 
@@ -178,6 +183,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Lock.belongsTo(IT_Equip_WO, {
         foreignKey: 'it_equip_wo_id',
+        // allowNull: true, 
         onDelete: 'CASCADE'
     });
 
@@ -197,6 +203,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Other_Equipment.belongsTo(IT_Equip_WO, {
         foreignKey: 'it_equip_wo_id',
+        allowNull: true, 
         onDelete: 'CASCADE'
     });
 
