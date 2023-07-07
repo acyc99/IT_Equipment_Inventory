@@ -1,6 +1,4 @@
 // Database Table Format 
-// const { handleCheckboxSelection } = require('../public/js/main') 
-// const nullDecision = handleCheckboxSelection();
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(

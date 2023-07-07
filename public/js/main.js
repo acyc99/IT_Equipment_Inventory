@@ -33,6 +33,7 @@ const otherEquipmentInfoContainer = document.getElementById('otherEquipmentInfoC
 const itEquipcheckboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other];
 const checkboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other, phone];
 
+const workOrderInput = document.getElementById('workOrderInput');
 
 resetAll = () => {
     document.querySelectorAll('[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
@@ -66,7 +67,7 @@ handleCheckboxSelection = () => {
 
     const allowNull = checkedCount <= 0 ? true : false; // If > 0 = allowNull is False and if <= 0 = allowBull is True 
     if (allowNull) {
-        const workOrderInput = document.getElementById('workOrderInput'); 
+        // const workOrderInput = document.getElementById('workOrderInput'); 
         workOrderInput.value = ""; 
     } 
     // console.log(workOrderInput.value);
@@ -156,6 +157,105 @@ formatPhoneNumber = (elementId) => {
         phoneNumberInput.value = phoneNumber;
     }
 }
+  
+// document.getElementById('checkWorkOrderButton').addEventListener('click', (e) => {
+//     e.preventDefault();
+//     const workOrderVal = workOrderInput.value.toString(); // Convert to string
+//     const workOrderStatus = document.getElementById('workOrderStatus');
+  
+//     fetch('/inventory-entry', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ ITEquipmentWO: workOrderVal }),
+//     })
+//       .then(response => {
+//         // console.log('Response:', response);
+//         if (!response.ok) {
+//           throw new Error('Network response was not OK');
+//         }
+//         return response.json();
+//       })
+//       .then(data => {
+//         console.log("Response data:", data);
+//         if (data.exists) {
+//           workOrderStatus.textContent = 'Work order number already exists in the database';
+//         } else {
+//           workOrderStatus.textContent = 'Work order number does not exist in the database';
+//         }
+//       })
+//       .catch(error => {
+//         console.error(error);
+//         workOrderStatus.textContent = 'An error occurred';
+//       });
+// });
+  
+// document.getElementById('checkWorkOrderButton').addEventListener('click', (e) => {
+//     e.preventDefault();
+//     const workOrderVal = workOrderInput.value.toString(); // Convert to string
+//     const workOrderStatus = document.getElementById('workOrderStatus');
+  
+//     fetch('/inventory-entry', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ ITEquipmentWO: workOrderVal }),
+//     })
+//       .then(response => {
+//         if (!response.ok) {
+//           throw new Error('Network response was not OK');
+//         }
+//         return response.json();
+//       })
+//       .then(data => {
+//         console.log("Response data:", data);
+//         if (data.exists) {
+//           workOrderStatus.textContent = 'Work order number already exists in the database';
+//         } else {
+//           workOrderStatus.textContent = 'Work order number does not exist in the database';
+//         }
+//       })
+//       .catch(error => {
+//         console.error(error);
+//         workOrderStatus.textContent = 'An error occurred';
+//       });
+// });
+
+
+document.getElementById('checkWorkOrderButton').addEventListener('click', (e) => {
+    e.preventDefault();
+    const workOrderVal = workOrderInput.value.toString(); // Convert to string
+    const workOrderStatus = document.getElementById('workOrderStatus');
+  
+    fetch('/inventory-entry', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ITEquipmentWO: workOrderVal }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not OK');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Response data:", data);
+        if (data.exists) {
+          workOrderStatus.textContent = 'Work order number already exists in the database';
+        } else {
+          workOrderStatus.textContent = 'Work order number does not exist in the database';
+          document.getElementById('formId').submit(); 
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        workOrderStatus.textContent = 'An error occurred';
+      });
+});
 
 validateForm = (containerId) => {
     const container = document.getElementById(containerId);
@@ -220,7 +320,7 @@ document.getElementById('formId').addEventListener('submit', (e) => {
         return;
     }
     
-    const workOrderInput = document.getElementById('workOrderInput');
+    // const workOrderInput = document.getElementById('workOrderInput');
     const workOrderInputDisplay = getComputedStyle(workOrderInput).display;
     // console.log(workOrderInputDisplay);  
     const allowNull = handleCheckboxSelection(); // From handleCheckboxSelection() function 

@@ -3,6 +3,32 @@
 const { models: { User, IT_Equip_WO, Laptop, Monitor, Docking_Station, Adaptor, Mouse, Keyboard, Lock, Other_Equipment, Cell_Phone_WO, Cell_Phone, Note } } = require('../models');
 
 module.exports = {
+  checkWorkOrderExists: async(workOrderNumber) => {
+    try {
+      const existingWorkOrders = await IT_Equip_WO.findAll({
+        where: { equip_work_order: workOrderNumber }
+      });
+      return existingWorkOrders.length > 0; 
+    } catch (error) {
+      console.error(error); 
+      throw new Error("An error occurred while checking the work order number existence")
+    }
+  },
+
+  // checkWorkOrderExists: async (req, res) => {
+  //   const { ITEquipmentWO } = req.body;
+  
+  //   try {
+  //     // Perform the necessary query to check if the work order exists
+  //     const exists = await // Your code to check work order existence
+  
+  //     res.json({ exists });
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({ error: 'An error occurred' });
+  //   }
+  // },
+  
   saveDataToDB: async (req, res) => {
     console.log(req.body); 
     const { fullName, firstName, middleName, lastName, branchSection, officeNumber, telNumber, email, 
@@ -36,17 +62,38 @@ module.exports = {
         // let itEquipWO = itEquipmentWO.it_equip_wo_id; 
         let cellPhoneWO;
 
+        // if (ITEquipmentWO) {
+        //   const itPickUpDate = ITEquipmentPickUpDate ? new Date(ITEquipmentPickUpDate) : null;
+  
+        //   itEquipmentWO = await IT_Equip_WO.create({
+        //     user_id: users.user_id,
+        //     equip_work_order: ITEquipmentWO,
+        //     equip_pickup_date: itPickUpDate
+        //   });
+        // }
+
         if (ITEquipmentWO) {
           const itPickUpDate = ITEquipmentPickUpDate ? new Date(ITEquipmentPickUpDate) : null;
-  
-          itEquipmentWO = await IT_Equip_WO.create({
+
+          // const workOrderExists = await this.checkWorkOrderExists(ITEquipmentWO);
+          const workOrderExists = await module.exports.checkWorkOrderExists(ITEquipmentWO);
+
+          if (workOrderExists) {
+            return res.status(200).json({ exists: true });
+          }
+
+          const itEquipmentWO = await IT_Equip_WO.create({
             user_id: users.user_id,
             equip_work_order: ITEquipmentWO,
             equip_pickup_date: itPickUpDate
-          });
+          }); 
+
+          res.status(200).json({ exists: false, itEquipmentWO }); 
+        } else {
+          // Handle the case when ITEquipmentWO is not provided
+          res.status(400).json({ error: 'Missing work order number' });
         }
 
-        
         if (laptopAssetTag) {
           const laptops = await Laptop.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
@@ -162,13 +209,16 @@ module.exports = {
         })
       }
       
-      res.send("Data successfully added to the database!");
+      // res.send("Data successfully added to the database!");
+      res.json({ message: "Data successfully added to the database!" });
     } catch (error) {
         console.error("Error adding data to the database:", error);
-        res.status(500).send(`An error occurred while adding data to the database. ${error}`);
+        // res.status(500).send(`An error occurred while adding data to the database. ${error}`);
+        res.status(500).json({ error: "An error occurred while adding data to the database." });
       }
     } else {
-      res.send("Not added to the database!");
+      // res.send("Not added to the database!");
+      res.json({ message: "Data not added to the database!" });
     }
   },
 };
