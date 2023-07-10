@@ -15,20 +15,6 @@ module.exports = {
     }
   },
 
-  // checkWorkOrderExists: async (req, res) => {
-  //   const { ITEquipmentWO } = req.body;
-  
-  //   try {
-  //     // Perform the necessary query to check if the work order exists
-  //     const exists = await // Your code to check work order existence
-  
-  //     res.json({ exists });
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).json({ error: 'An error occurred' });
-  //   }
-  // },
-  
   saveDataToDB: async (req, res) => {
     console.log(req.body); 
     const { fullName, firstName, middleName, lastName, branchSection, officeNumber, telNumber, email, 
@@ -59,39 +45,25 @@ module.exports = {
         });
 
         let itEquipmentWO; 
-        // let itEquipWO = itEquipmentWO.it_equip_wo_id; 
         let cellPhoneWO;
-
-        // if (ITEquipmentWO) {
-        //   const itPickUpDate = ITEquipmentPickUpDate ? new Date(ITEquipmentPickUpDate) : null;
-  
-        //   itEquipmentWO = await IT_Equip_WO.create({
-        //     user_id: users.user_id,
-        //     equip_work_order: ITEquipmentWO,
-        //     equip_pickup_date: itPickUpDate
-        //   });
-        // }
 
         if (ITEquipmentWO) {
           const itPickUpDate = ITEquipmentPickUpDate ? new Date(ITEquipmentPickUpDate) : null;
-
-          // const workOrderExists = await this.checkWorkOrderExists(ITEquipmentWO);
           const workOrderExists = await module.exports.checkWorkOrderExists(ITEquipmentWO);
-
+        
           if (workOrderExists) {
-            return res.status(200).json({ exists: true });
+            return { success: false };
           }
-
-          const itEquipmentWO = await IT_Equip_WO.create({
+        
+          itEquipmentWO = await IT_Equip_WO.create({
             user_id: users.user_id,
             equip_work_order: ITEquipmentWO,
             equip_pickup_date: itPickUpDate
-          }); 
-
-          res.status(200).json({ exists: false, itEquipmentWO }); 
+          });
+        
+          return { success: true };
         } else {
-          // Handle the case when ITEquipmentWO is not provided
-          res.status(400).json({ error: 'Missing work order number' });
+          return { success: false };
         }
 
         if (laptopAssetTag) {
@@ -105,7 +77,7 @@ module.exports = {
             other_laptop_model: otherLaptopModel
           });
         }
-
+        
         if (monitor1AssetTag) {
           const monitors1 = await Monitor.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
@@ -138,7 +110,7 @@ module.exports = {
             other_dock_brand_model: otherDockBrandModel
           });
         }
-
+        
         if (adaptorAssetTag) {
           const adaptors = await Adaptor.create({
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
@@ -167,9 +139,9 @@ module.exports = {
             it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
             lock_available: lockAvailable
           });
-      }
-      
-      if (ITEquipmentName) {
+        }
+        
+        if (ITEquipmentName) {
         const otherEquips = await Other_Equipment.create({
           it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
           other_equip_name: ITEquipmentName,
@@ -178,10 +150,10 @@ module.exports = {
           other_equip_brand_model: equipModelBrand
         });
       }
-
+      
       if (PhoneWO) {
         const cellPickUpDate = phonePickUpDate ? new Date(phonePickUpDate) : null;
-
+        
         cellPhoneWO = await Cell_Phone_WO.create({
           user_id: users.user_id,
           phone_work_order: PhoneWO, 
@@ -212,13 +184,51 @@ module.exports = {
       // res.send("Data successfully added to the database!");
       res.json({ message: "Data successfully added to the database!" });
     } catch (error) {
-        console.error("Error adding data to the database:", error);
-        // res.status(500).send(`An error occurred while adding data to the database. ${error}`);
-        res.status(500).json({ error: "An error occurred while adding data to the database." });
-      }
-    } else {
-      // res.send("Not added to the database!");
-      res.json({ message: "Data not added to the database!" });
+      console.error("Error adding data to the database:", error);
+      // res.status(500).send(`An error occurred while adding data to the database. ${error}`);
+      res.status(500).json({ error: "An error occurred while adding data to the database." });
     }
-  },
+  } else {
+    // res.send("Not added to the database!");
+    res.json({ message: "Data not added to the database!" });
+  }
+},
 };
+
+
+
+// if (ITEquipmentWO) {
+  //   const itPickUpDate = ITEquipmentPickUpDate ? new Date(ITEquipmentPickUpDate) : null;
+  
+  //   itEquipmentWO = await IT_Equip_WO.create({
+    //     user_id: users.user_id,
+    //     equip_work_order: ITEquipmentWO,
+    //     equip_pickup_date: itPickUpDate
+    //   });
+    // }
+    
+    // if (ITEquipmentWO) {
+    //   const itPickUpDate = ITEquipmentPickUpDate ? new Date(ITEquipmentPickUpDate) : null;
+      
+    //   // const workOrderExists = await this.checkWorkOrderExists(ITEquipmentWO);
+    //   const workOrderExists = await module.exports.checkWorkOrderExists(ITEquipmentWO);
+    
+    //   if (workOrderExists) {
+    //     res.redirect('/submission-result?success=false');
+    //     // return res.status(200).json({ exists: true, message: 'The work order number is duplicated and cannot be saved to the database!' });
+    //   }
+      
+    //   itEquipmentWO = await IT_Equip_WO.create({
+    //     user_id: users.user_id,
+    //     equip_work_order: ITEquipmentWO,
+    //     equip_pickup_date: itPickUpDate
+    //   }); 
+      
+    //   res.redirect('/submission-result?success=true');
+    //   // return res.status(200).json({ exists: false, itEquipmentWO, message: 'Data saved successfully!' });
+      
+    // } else {
+    //   // Handle the case when ITEquipmentWO is not provided
+    //   res.redirect('/submission-result?success=false');
+    //   // res.status(400).json({ error: 'Missing work order number' });
+    // }

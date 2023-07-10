@@ -157,79 +157,13 @@ formatPhoneNumber = (elementId) => {
         phoneNumberInput.value = phoneNumber;
     }
 }
-  
-// document.getElementById('checkWorkOrderButton').addEventListener('click', (e) => {
-//     e.preventDefault();
-//     const workOrderVal = workOrderInput.value.toString(); // Convert to string
-//     const workOrderStatus = document.getElementById('workOrderStatus');
-  
-//     fetch('/inventory-entry', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ ITEquipmentWO: workOrderVal }),
-//     })
-//       .then(response => {
-//         // console.log('Response:', response);
-//         if (!response.ok) {
-//           throw new Error('Network response was not OK');
-//         }
-//         return response.json();
-//       })
-//       .then(data => {
-//         console.log("Response data:", data);
-//         if (data.exists) {
-//           workOrderStatus.textContent = 'Work order number already exists in the database';
-//         } else {
-//           workOrderStatus.textContent = 'Work order number does not exist in the database';
-//         }
-//       })
-//       .catch(error => {
-//         console.error(error);
-//         workOrderStatus.textContent = 'An error occurred';
-//       });
-// });
-  
-// document.getElementById('checkWorkOrderButton').addEventListener('click', (e) => {
-//     e.preventDefault();
-//     const workOrderVal = workOrderInput.value.toString(); // Convert to string
-//     const workOrderStatus = document.getElementById('workOrderStatus');
-  
-//     fetch('/inventory-entry', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ ITEquipmentWO: workOrderVal }),
-//     })
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error('Network response was not OK');
-//         }
-//         return response.json();
-//       })
-//       .then(data => {
-//         console.log("Response data:", data);
-//         if (data.exists) {
-//           workOrderStatus.textContent = 'Work order number already exists in the database';
-//         } else {
-//           workOrderStatus.textContent = 'Work order number does not exist in the database';
-//         }
-//       })
-//       .catch(error => {
-//         console.error(error);
-//         workOrderStatus.textContent = 'An error occurred';
-//       });
-// });
-
 
 document.getElementById('checkWorkOrderButton').addEventListener('click', (e) => {
     e.preventDefault();
     const workOrderVal = workOrderInput.value.toString(); // Convert to string
     const workOrderStatus = document.getElementById('workOrderStatus');
   
-    fetch('/inventory-entry', {
+    fetch('/inventory-entry/check-work-order', { // Updated URL
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -245,10 +179,10 @@ document.getElementById('checkWorkOrderButton').addEventListener('click', (e) =>
       .then(data => {
         console.log("Response data:", data);
         if (data.exists) {
-          workOrderStatus.textContent = 'Work order number already exists in the database';
+            workOrderStatus.textContent = 'Work order number already exists in the database';
         } else {
-          workOrderStatus.textContent = 'Work order number does not exist in the database';
-          document.getElementById('formId').submit(); 
+            workOrderStatus.textContent = 'Work order number does not exist in the database';
+            document.getElementById('submit').disabled = false;
         }
       })
       .catch(error => {
@@ -369,3 +303,28 @@ document.getElementById('formId').addEventListener('submit', (e) => {
             return;
         } 
 });
+
+// document.getElementById('formId').addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const form = e.target;
+//     const formData = new FormData(form);
+  
+//     fetch('/inventory-entry', {
+//         method: 'POST',
+//         body: formData,
+//       })
+//         .then(response => {
+//           if (!response.ok) {
+//             throw new Error('Network response was not OK');
+//           }
+//           return response.json();
+//         })
+//         .then(data => {
+//           alert(data.message); // Display the success or error message in an alert
+//         })
+//         .catch(error => {
+//           console.error(error);
+//           alert('An error occurred'); // Display a generic error message in case of network or server error
+//         });
+// });
+  
