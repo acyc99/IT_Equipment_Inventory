@@ -9,7 +9,7 @@ html(lang="en")
         h1 IT Equipment Inventory 
         form#formId(action='/inventory-entry', method='POST')
             button(type="button", onclick="resetAll()") Reset 
-            div#clientInfoContainer
+            div#clientDetailContainer
                 h2 Client Info 
                 p Full Name: 
                     span#fullName 
@@ -21,12 +21,12 @@ html(lang="en")
                     input#middleName(type="text" name="middleName", oninput="updateFullName()")
                     label Last Name: 
                     input#lastName(type="text", name="lastName", placeholder="Doe", oninput="updateFullName()")
-                div#companyInfoContainer
+                div#companyDetailContainer
                     label Branch / Section: 
                     input#branchSection(type="text", name="branchSection", placeholder="IT Operations") 
                     label Office Number: 
                     input#officeNumber(type="text", name="officeNumber", placeholder="4-31") 
-                div#employeeContactInfoContainer
+                div#employeeContactContainer
                     label Telephone Number: 
                     input#telNumber(type="tel", name="telNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('telNumber')") 
                     label Email: 

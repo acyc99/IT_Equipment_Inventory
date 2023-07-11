@@ -7,7 +7,7 @@ h2 {
     margin-bottom: 5px; 
 }
 
-div#clientInfoContainer {
+div#clientDetailContainer {
     /* display: flex;
     flex-direction: column;
     align-items: center; */
@@ -15,7 +15,7 @@ div#clientInfoContainer {
     border-bottom: 5px solid #d87093;
 }
 
-div#fullNameContainer, div#companyInfoContainer, div#employeeContactInfoContainer {
+div#fullNameContainer, div#companyDetailContainer, div#employeeContactContainer {
     /* display: flex; 
     flex-direction: row;
     align-items: center;
@@ -23,11 +23,11 @@ div#fullNameContainer, div#companyInfoContainer, div#employeeContactInfoContaine
     margin: 15px 0px 15px 0px; /* Top, Left, Bottom, Right */ 
 }
 
-div#fullNameContainer label, div#companyInfoContainer label, div#employeeContactInfoContainer label {
+div#fullNameContainer label, div#companyDetailContainer label, div#employeeContactContainer label {
     margin-right: 5px; 
 }
 
-div#fullNameContainer input, div#companyInfoContainer input, div#employeeContactInfoContainer input {
+div#fullNameContainer input, div#companyDetailContainer input, div#employeeContactContainer input {
     margin-right: 25px; 
 }
 
@@ -39,30 +39,3 @@ div#ITEquipSummaryContainer {
 div.checkbox-row input {
     margin: 10px 5px 10px 5px; 
 }
-
-
-
-
-
-
-/* input[type="checkbox"] {
-    visibility: hidden;
-}
-
-input[type="checkbox"] + label:before {
-border: 1px solid #333;
-content: "\00a0";
-display: inline-block;
-/* font: 16px/1em sans-serif; */
-/* height: 16px;
-margin: 0 .25em 0 0;
-padding: 0;
-width: 16px;
-} */
-
-/* input[type="checkbox"]:checked + label:before {
-background: red;
-color: green;
-content: "\2713";
-text-align: top;
-} */
