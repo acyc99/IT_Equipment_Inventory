@@ -15,6 +15,18 @@ module.exports = {
     }
   },
 
+  checkPhoneWorkOrderExists: async(phoneWorkOrderNumber) => {
+    try {
+      const existingPhoneWorkOrders = await Cell_Phone_WO.findAll({
+        where: { phone_work_order: phoneWorkOrderNumber }
+      }); 
+      return existingPhoneWorkOrders.length > 0; 
+    } catch (error) {
+      console.error(error); 
+      throw new Error("An error occurred while checking the work order number existence")
+    }
+  },
+
   saveDataToDB: async (req, res) => {
     console.log(req.body); 
     const { fullName, firstName, middleName, lastName, branchSection, officeNumber, telNumber, email, 
@@ -148,6 +160,11 @@ module.exports = {
         
         if (PhoneWO) {
           const cellPickUpDate = phonePickUpDate ? new Date(phonePickUpDate) : null;
+          const phoneWorkOrderExists = await module.exports.checkPhoneWorkOrderExists(PhoneWO);
+
+          if (phoneWorkOrderExists) {
+            return { success: false };
+          }
           
           cellPhoneWO = await Cell_Phone_WO.create({
             user_id: users.user_id,

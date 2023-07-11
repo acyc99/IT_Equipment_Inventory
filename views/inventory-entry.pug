@@ -70,32 +70,36 @@ html(lang="en")
 
             div#laptopInfoContainer(style="display: none;")
                 h3 Laptop Info 
-                label Laptop Asset Tag: 
-                input.verifyInput(type="number", min="0", name="laptopAssetTag")
-                label Laptop Serial Number: 
-                input.verifyInput(type="text", name="laptopSerialNumber")
-                label Laptop Brand: 
-                select#laptopBrand(name="laptopBrand", onchange="inputOtherOption('laptopBrand', 'otherLaptopBrandContainer', 'otherLaptopBrand')")
-                    option(value="") 
-                    option(value="Dell") Dell 
-                    option(value="Dynabook") Dynabook 
-                    option(value="HP") HP 
-                    option(value="Other") Other 
-                div#otherLaptopBrandContainer(style="display: none;")
-                    label(for="otherLaptopBrand") Other Laptop Brand: 
-                    input#otherLaptopBrand(type="text", name="otherLaptopBrand")
-                label Laptop Model: 
-                select#laptopModel(name="laptopModel", onchange="inputOtherOption('laptopModel', 'otherLaptopModelContainer', 'otherLaptopModel')")
-                    option(value="") 
-                    option(value="Elitebook_G5") Elitebook 745 G5 
-                    option(value="Elitebook_G6") Elitebook 745 G6 
-                    option(value="TECRA_A") Tecra A40-E 
-                    option(value="TECRA_E") Tecra A40-G 
-                    option(value="TECRA_J") Tecra A40-J  
-                    option(value="Other") Other 
-                div#otherLaptopModelContainer(style="display: none;")
-                    label(for="otherLaptopModel") Other Laptop Model: 
-                    input#otherLaptopModel(type="text", name="otherLaptopModel")
+                div.row
+                    label Laptop Asset Tag: 
+                    input.verifyInput(type="number", min="0", name="laptopAssetTag")
+                div.row
+                    label Laptop Serial Number: 
+                    input.verifyInput(type="text", name="laptopSerialNumber")
+                div.row 
+                    label Laptop Brand: 
+                    select#laptopBrand(name="laptopBrand", onchange="inputOtherOption('laptopBrand', 'otherLaptopBrandContainer', 'otherLaptopBrand')")
+                        option(value="") 
+                        option(value="Dell") Dell 
+                        option(value="Dynabook") Dynabook 
+                        option(value="HP") HP 
+                        option(value="Other") Other 
+                    div#otherLaptopBrandContainer(style="display: none;")
+                        label(for="otherLaptopBrand") Other Laptop Brand: 
+                        input#otherLaptopBrand(type="text", name="otherLaptopBrand")
+                div.row
+                    label Laptop Model: 
+                    select#laptopModel(name="laptopModel", onchange="inputOtherOption('laptopModel', 'otherLaptopModelContainer', 'otherLaptopModel')")
+                        option(value="") 
+                        option(value="Elitebook_G5") Elitebook 745 G5 
+                        option(value="Elitebook_G6") Elitebook 745 G6 
+                        option(value="TECRA_A") Tecra A40-E 
+                        option(value="TECRA_E") Tecra A40-G 
+                        option(value="TECRA_J") Tecra A40-J  
+                        option(value="Other") Other 
+                    div#otherLaptopModelContainer(style="display: none;")
+                        label(for="otherLaptopModel") Other Laptop Model: 
+                        input#otherLaptopModel(type="text", name="otherLaptopModel")
             
             div#monitorInfoContainer(style="display: none;")
                 h3 # of Monitors 
@@ -105,64 +109,72 @@ html(lang="en")
                 label(for="twoMonitors") 2 Monitors 
 
             div#monitor1InfoContainer(style="display: none;")
-                h4 Monitor #1 Info 
-                label Monitor Asset Tag: 
-                input.verifyInput(type="number", min="0", name="monitor1AssetTag")
-                label Monitor Serial Number: 
-                input.verifyInput(type="text", name="monitor1SerialNumber")
-                label(for="monitor1Brand") Monitor Brand: 
-                select#monitor1Brand(name="monitor1Brand", onchange="inputOtherOption('monitor1Brand', 'otherMonitor1BrandContainer', 'otherMonitor1Brand')")
-                    option(value="") 
-                    option(value="Asus") Asus 
-                    option(value="LG") LG 
-                    option(value="Philips") Philips 
-                    option(value="Samsung") Samsung 
-                    option(value="Other") Other 
-                div#otherMonitor1BrandContainer(style="display: none;")
-                    label(for="otherMonitor1Brand") Other Monitor Brand: 
-                    input#otherMonitor1Brand(type="text", name="otherMonitor1Brand")
-                label(for="monitor1Model") Monitor Model:
-                select#monitor1Model(name="monitor1Model",onchange="inputOtherOption('monitor1Model', 'otherMonitor1ModelContainer', 'otherMonitor1Model')")
-                    option(value="") 
-                    option(value="24BK55") 24BK55
-                    option(value="B") Brilliance 231B
-                    option(value="P") Brilliance 231P 
-                    option(value="F24T454FQN") F24T454FQN
-                    option(value="SyncMaster") SyncMaster 2230
-                    option(value="Other") Other 
-                div#otherMonitor1ModelContainer(style="display: none;")
-                    label(for="otherMonitor1Model") Other Monitor Model: 
-                    input#otherMonitor1Model(type="text", name="otherMonitor1Model")
+                h4 Monitor #1 Info
+                div.row 
+                    label Monitor Asset Tag: 
+                    input.verifyInput(type="number", min="0", name="monitor1AssetTag")
+                div.row
+                    label Monitor Serial Number: 
+                    input.verifyInput(type="text", name="monitor1SerialNumber")
+                div.row
+                    label(for="monitor1Brand") Monitor Brand: 
+                    select#monitor1Brand(name="monitor1Brand", onchange="inputOtherOption('monitor1Brand', 'otherMonitor1BrandContainer', 'otherMonitor1Brand')")
+                        option(value="") 
+                        option(value="Asus") Asus 
+                        option(value="LG") LG 
+                        option(value="Philips") Philips 
+                        option(value="Samsung") Samsung 
+                        option(value="Other") Other 
+                    div#otherMonitor1BrandContainer(style="display: none;")
+                        label(for="otherMonitor1Brand") Other Monitor Brand: 
+                        input#otherMonitor1Brand(type="text", name="otherMonitor1Brand")
+                div.row
+                    label(for="monitor1Model") Monitor Model:
+                    select#monitor1Model(name="monitor1Model",onchange="inputOtherOption('monitor1Model', 'otherMonitor1ModelContainer', 'otherMonitor1Model')")
+                        option(value="") 
+                        option(value="24BK55") 24BK55
+                        option(value="B") Brilliance 231B
+                        option(value="P") Brilliance 231P 
+                        option(value="F24T454FQN") F24T454FQN
+                        option(value="SyncMaster") SyncMaster 2230
+                        option(value="Other") Other 
+                    div#otherMonitor1ModelContainer(style="display: none;")
+                        label(for="otherMonitor1Model") Other Monitor Model: 
+                        input#otherMonitor1Model(type="text", name="otherMonitor1Model")
             
             div#monitor2InfoContainer(style="display: none;")
                 h4 Monitor #2 Info 
-                label Monitor Asset Tag: 
-                input.verifyInput(type="number", min="0", name="monitor2AssetTag")
-                label Monitor Serial Number: 
-                input.verifyInput(type="text", name="monitor2SerialNumber")
-                label(for="monitor2Brand") Monitor Brand: 
-                select#monitor2Brand(name="monitor2Brand", onchange="inputOtherOption('monitor2Brand', 'otherMonitor2BrandContainer', 'otherMonitor2Brand')")
-                    option(value="")
-                    option(value="Asus") Asus 
-                    option(value="LG") LG 
-                    option(value="Philips") Philips 
-                    option(value="Samsung") Samsung 
-                    option(value="Other") Other 
-                div#otherMonitor2BrandContainer(style="display: none;")
-                    label(for="otherMonitor2BrandContainer") Other Monitor Brand: 
-                    input#otherMonitor2Brand(type="text", name="otherMonitor2Brand")
-                label(for="monitor2Model") Monitor Model:
-                select#monitor2Model(name="monitor2Model",onchange="inputOtherOption('monitor2Model', 'otherMonitor2ModelContainer', 'otherMonitor2Model')") 
-                    option(value="")
-                    option(value="24BK55") 24BK55
-                    option(value="B") Brilliance 231B
-                    option(value="P") Brilliance 231P 
-                    option(value="F24T454FQN") F24T454FQN
-                    option(value="SyncMaster") SyncMaster 2230
-                    option(value="Other") Other 
-                div#otherMonitor2ModelContainer(style="display: none;")
-                    label(for="otherMonitor2Model") Other Monitor Model: 
-                    input#otherMonitor2Model(type="text", name="otherMonitor2Model")
+                div.row
+                    label Monitor Asset Tag: 
+                    input.verifyInput(type="number", min="0", name="monitor2AssetTag")
+                div.row
+                    label Monitor Serial Number: 
+                    input.verifyInput(type="text", name="monitor2SerialNumber")
+                div.row
+                    label(for="monitor2Brand") Monitor Brand: 
+                    select#monitor2Brand(name="monitor2Brand", onchange="inputOtherOption('monitor2Brand', 'otherMonitor2BrandContainer', 'otherMonitor2Brand')")
+                        option(value="")
+                        option(value="Asus") Asus 
+                        option(value="LG") LG 
+                        option(value="Philips") Philips 
+                        option(value="Samsung") Samsung 
+                        option(value="Other") Other 
+                    div#otherMonitor2BrandContainer(style="display: none;")
+                        label(for="otherMonitor2BrandContainer") Other Monitor Brand: 
+                        input#otherMonitor2Brand(type="text", name="otherMonitor2Brand")
+                div.row
+                    label(for="monitor2Model") Monitor Model:
+                    select#monitor2Model(name="monitor2Model",onchange="inputOtherOption('monitor2Model', 'otherMonitor2ModelContainer', 'otherMonitor2Model')") 
+                        option(value="")
+                        option(value="24BK55") 24BK55
+                        option(value="B") Brilliance 231B
+                        option(value="P") Brilliance 231P 
+                        option(value="F24T454FQN") F24T454FQN
+                        option(value="SyncMaster") SyncMaster 2230
+                        option(value="Other") Other 
+                    div#otherMonitor2ModelContainer(style="display: none;")
+                        label(for="otherMonitor2Model") Other Monitor Model: 
+                        input#otherMonitor2Model(type="text", name="otherMonitor2Model")
 
             //- h3 Dock OR Adaptor 
             //- label Select one of the folllowing: 
@@ -173,35 +185,39 @@ html(lang="en")
 
             div#dockingStationInfoContainer(style="display: none;")
                 h3 Docking Station Info 
-                label Docking Station Asset Tag: 
-                input.verifyInput(type="number", min="0", name="dockingStationAssetTag")
-                label(for="dockingStationBrandModel") Docking Station Brand and Model: 
-                select#dockingStationBrandModel(name="dockingStationBrandModel", onchange="inputOtherOption('dockingStationBrandModel', 'otherDockContainer', 'otherDockBrandModel')")
-                    option(value="")
-                    option(value="Dell D6000") Dell D6000
-                    option(value="Dell WD15") Dell WD15
-                    option(value="Dell WD19DC") Dell WD19DC
-                    option(value="HP USB-C Dock G4") HP USB-C Dock G4
-                    option(value="HP USB-C Dock G5") HP USB-C Dock G5
-                    option(value="Targus USB-C") Targus USB-C
-                    option(value="Microsoft Surface Dock") Microsoft Surface Dock
-                    option(value="Other") Other 
-                div#otherDockContainer(style="display: none;")
-                    label(for="otherDockBrandModel") Other Docking Station Brand and Model: 
-                    input#otherDockBrandModel(type="text", name="otherDockBrandModel")
+                div.row
+                    label DOCK Asset Tag: 
+                    input.verifyInput(type="number", min="0", name="dockingStationAssetTag")
+                div.row
+                    label(for="dockingStationBrandModel") DOCK Brand and Model: 
+                    select#dockingStationBrandModel(name="dockingStationBrandModel", onchange="inputOtherOption('dockingStationBrandModel', 'otherDockContainer', 'otherDockBrandModel')")
+                        option(value="")
+                        option(value="Dell D6000") Dell D6000
+                        option(value="Dell WD15") Dell WD15
+                        option(value="Dell WD19DC") Dell WD19DC
+                        option(value="HP USB-C Dock G4") HP USB-C Dock G4
+                        option(value="HP USB-C Dock G5") HP USB-C Dock G5
+                        option(value="Targus USB-C") Targus USB-C
+                        option(value="Microsoft Surface Dock") Microsoft Surface Dock
+                        option(value="Other") Other 
+                    div#otherDockContainer(style="display: none;")
+                        label(for="otherDockBrandModel") Other DOCK Brand and Model: 
+                        input#otherDockBrandModel(type="text", name="otherDockBrandModel")
             
             div#adaptorInfoContainer(style="display: none;")
                 h3 USB-C to HDMI Adaptor Info 
-                label Adaptor Asset Tag: 
-                input.verifyInput(type="number", min="0", name="adaptorAssetTag")
-                label(for="adaptorBrandModel") Adaptor Brand and Model: 
-                select#adaptorBrandModel(name="adaptorBrandModel", onchange="inputOtherOption('adaptorBrandModel', 'otherAdaptorContainer', 'otherAdaptorBrandModel')")
-                    option(value="")
-                    option(value="Targus") Targus USB-C to HDMI Adaptor 
-                    option(value="Other") Other 
-                div#otherAdaptorContainer(style="display: none;")
-                    label(for="otherAdaptorBrandModel") Other Adaptor Brand and Model: 
-                    input#otherAdaptorBrandModel(type="text", name="otherAdaptorBrandModel")
+                div.row
+                    label Adaptor Asset Tag: 
+                    input.verifyInput(type="number", min="0", name="adaptorAssetTag")
+                div.row
+                    label(for="adaptorBrandModel") Adaptor Brand and Model: 
+                    select#adaptorBrandModel(name="adaptorBrandModel", onchange="inputOtherOption('adaptorBrandModel', 'otherAdaptorContainer', 'otherAdaptorBrandModel')")
+                        option(value="")
+                        option(value="Targus") Targus USB-C to HDMI Adaptor 
+                        option(value="Other") Other 
+                    div#otherAdaptorContainer(style="display: none;")
+                        label(for="otherAdaptorBrandModel") Other Adaptor Brand and Model: 
+                        input#otherAdaptorBrandModel(type="text", name="otherAdaptorBrandModel")
 
             div#mouseInfoContainer(style="display: none;")
                 h3 Mouse Available  
@@ -220,56 +236,69 @@ html(lang="en")
 
             div#otherEquipmentInfoContainer(style="display: none;")
                 h3 Other IT Equipment Info 
-                label IT Equipment: 
-                input#ITEquipmentName.verifyInput(type="text", name="ITEquipmentName", oninput="updateEquipName()") 
-                label#ITequipmentNameAT Asset Tag: 
-                input.verifyInput(type="number", min="0", name="equipmentAssetTag") 
-                label#ITequipmentNameSN Serial Number: 
-                input.verifyInput(type="text", name="equipmentSerialNumber")
-                label#ITequipmentNameMB Model and Brand: 
-                input.verifyInput(type="text", name="equipModelBrand")
+                div.row 
+                    label IT Equipment: 
+                    input#ITEquipmentName.verifyInput(type="text", name="ITEquipmentName", oninput="updateEquipName()") 
+                div.row 
+                    label#ITequipmentNameAT Asset Tag: 
+                    input.verifyInput(type="number", min="0", name="equipmentAssetTag") 
+                div.row 
+                    label#ITequipmentNameSN Serial Number: 
+                    input.verifyInput(type="text", name="equipmentSerialNumber")
+                div.row 
+                    label#ITequipmentNameMB Model and Brand: 
+                    input.verifyInput(type="text", name="equipModelBrand")
 
             div#phoneInfoContainer(style="display: none;")
                 h2 Cell-Phone Assigned 
                 label Work Order Number: 
                 input#phoneWorkOrderInput(type="text", name="PhoneWO", placeholder="WO0000000123456")
+                button#checkPhoneWorkOrderButton(type="button") Check 
+                div#phoneWorkOrderStatus 
                 label Pick Up Date: 
                 input(type="date", name="phonePickUpDate")
                 h3 Cell-Phone Info 
-                label Phone Asset Tag: 
-                input.verifyInput(type="number", min="0", name="phoneAssetTag")
-                label Phone Serial Number: 
-                input.verifyInput(type="text", name="phoneSerialNumber")
-                label(for="phoneBrand") Phone Brand: 
-                select#phoneBrand(name="phoneBrand", onchange="inputOtherOption('phoneBrand', 'otherPhoneBrandContainer', 'otherPhoneBrand')")
-                    option(value="")
-                    option(value="Apple") Apple 
-                    option(value="Samsung") Samsung 
-                    option(value="Other") Other
-                div#otherPhoneBrandContainer(style="display: none;")
-                    label(for="otherPhoneBrand") Other Phone Brand: 
-                    input#otherPhoneBrand(type="text", name="otherPhoneBrand")
-                label(for="phoneModel") Phone Model: 
-                select#phoneModel(name="phoneModel", onchange="inputOtherOption('phoneModel', 'otherPhoneModelContainer', 'otherPhoneModel')")
-                    option(value="")
-                    option(value="iPhone 12") iPhone 12 
-                    option(value="iPhone SE") iPhone SE
-                    option(value="iPhone 13") iPhone 13 
-                    option(value="iPhone 14") iPhone 14 
-                    option(value="iPhone 14 Pro") iPhone 14 Pro
-                    option(value="Galaxy A11") Galaxy A11 
-                    option(value="Galaxy A12") Galaxy A12 
-                    option(value="Other") Other
-                div#otherPhoneModelContainer(style="display: none;")
-                    label(for="otherPhoneModel") Other Phone Model: 
-                    input#otherPhoneModel(type="text", name="otherPhoneModel")
-                label Phone IMEI: 
-                input.verifyInput(type="number", min="0", name="phoneIMEI")
-                label(for="phoneNumber") Cell-Phone Number: 
-                input#phoneNumber.verifyInput(type="tel", name="phoneNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('phoneNumber')")
+                div.row 
+                    label Phone Asset Tag: 
+                    input.verifyInput(type="number", min="0", name="phoneAssetTag")
+                div.row
+                    label Phone Serial Number: 
+                    input.verifyInput(type="text", name="phoneSerialNumber")
+                div.row
+                    label(for="phoneBrand") Phone Brand: 
+                    select#phoneBrand(name="phoneBrand", onchange="inputOtherOption('phoneBrand', 'otherPhoneBrandContainer', 'otherPhoneBrand')")
+                        option(value="")
+                        option(value="Apple") Apple 
+                        option(value="Samsung") Samsung 
+                        option(value="Other") Other
+                    div#otherPhoneBrandContainer(style="display: none;")
+                        label(for="otherPhoneBrand") Other Phone Brand: 
+                        input#otherPhoneBrand(type="text", name="otherPhoneBrand")
+                div.row 
+                    label(for="phoneModel") Phone Model: 
+                    select#phoneModel(name="phoneModel", onchange="inputOtherOption('phoneModel', 'otherPhoneModelContainer', 'otherPhoneModel')")
+                        option(value="")
+                        option(value="iPhone 12") iPhone 12 
+                        option(value="iPhone SE") iPhone SE
+                        option(value="iPhone 13") iPhone 13 
+                        option(value="iPhone 14") iPhone 14 
+                        option(value="iPhone 14 Pro") iPhone 14 Pro
+                        option(value="Galaxy A11") Galaxy A11 
+                        option(value="Galaxy A12") Galaxy A12 
+                        option(value="Other") Other
+                    div#otherPhoneModelContainer(style="display: none;")
+                        label(for="otherPhoneModel") Other Phone Model: 
+                        input#otherPhoneModel(type="text", name="otherPhoneModel")
+                div.row 
+                    label Phone IMEI: 
+                    input.verifyInput(type="number", min="0", name="phoneIMEI")
+                div.row 
+                    label(for="phoneNumber") Cell-Phone Number: 
+                    input#phoneNumber.verifyInput(type="tel", name="phoneNumber", pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}", maxlength="12", placeholder="604-000-0000", oninput="formatPhoneNumber('phoneNumber')")
 
-            h2 Note / Comment   
-            textarea(id="description", rows="5", cols="50", placeholder="Type any notes here...", name="notes") 
+            div#noteContainer
+                h2 Note / Comment   
+                textarea(id="description", rows="5", cols="50", placeholder="Type any notes here...", name="notes") 
             
             p Click "Submit" to save inventory information to MySQL database and generate a PDF version with its QR code 
             button#submit(type="submit") Submit 

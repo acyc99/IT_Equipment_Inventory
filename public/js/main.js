@@ -34,6 +34,7 @@ const itEquipcheckboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyb
 const checkboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other, phone];
 
 const workOrderInput = document.getElementById('workOrderInput');
+const phoneWorkOrderInput = document.getElementById('phoneWorkOrderInput'); 
 
 resetAll = () => {
     document.querySelectorAll('[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
@@ -180,14 +181,51 @@ document.getElementById('checkWorkOrderButton').addEventListener('click', (e) =>
         console.log("Response data:", data);
         if (data.exists) {
             workOrderStatus.textContent = 'Work order number already exists in the database';
+            workOrderStatus.style.color = 'red';
         } else {
             workOrderStatus.textContent = 'Work order number does not exist in the database';
+            workOrderStatus.style.color = 'green';
             document.getElementById('submit').disabled = false;
         }
       })
       .catch(error => {
         console.error(error);
         workOrderStatus.textContent = 'An error occurred';
+      });
+});
+
+document.getElementById('checkPhoneWorkOrderButton').addEventListener('click', (e) => {
+    e.preventDefault();
+    const phoneWorkOrderVal = workOrderInput.value.toString(); // Convert to string
+    const phoneWorkOrderStatus = document.getElementById('phoneWorkOrderStatus');
+  
+    fetch('/inventory-entry/check-phone-work-order', { // Updated URL
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ PhoneWO: phoneWorkOrderVal }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not OK');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Response data:", data);
+        if (data.exists) {
+            phoneWorkOrderStatus.textContent = 'Work order number already exists in the database';
+            phoneWorkOrderStatus.style.color = 'red';
+        } else {
+            phoneWorkOrderStatus.textContent = 'Work order number does not exist in the database';
+            phoneWorkOrderStatus.style.color = 'green';
+            document.getElementById('submit').disabled = false;
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        phoneWorkOrderStatus.textContent = 'An error occurred';
       });
 });
 

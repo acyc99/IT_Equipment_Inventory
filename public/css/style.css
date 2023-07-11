@@ -1,6 +1,9 @@
 body {
     background-color: pink;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
 }
 
 h2 {
@@ -8,14 +11,37 @@ h2 {
 }
 
 div#clientDetailContainer {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
     padding: 10px;
     border-bottom: 5px solid #d87093;
 }
 
-div#fullNameContainer, div#companyDetailContainer, div#employeeContactContainer {
+div#ITEquipSummaryContainer {
+    padding-bottom: 10px; 
+}
+
+div#standardEquipmentInfoContainer {
+    border-top: 5px dashed #d87093;
+    border-bottom: 3px dashed #d87093;  
+    padding-bottom: 20px; 
+}
+
+div#laptopInfoContainer {
+    border-bottom: 3px dashed #d87093; 
+    padding-bottom: 10px; 
+}
+
+div#noteContainer {
+    border-top: 5px solid #d87093; 
+}
+
+
+
+/* div#phoneInfoContainer {
+    padding-top: 20px;
+    border-top: 5px solid #d87093; 
+} */
+
+div#fullNameContainer, div#companyDetailContainer, div#employeeContactContainer, div#standardEquipmentInfoContainer, div#phoneInfoContainer {
     /* display: flex; 
     flex-direction: row;
     align-items: center;
@@ -27,15 +53,36 @@ div#fullNameContainer label, div#companyDetailContainer label, div#employeeConta
     margin-right: 5px; 
 }
 
+div#otherLaptopBrandContainer label, div#otherLaptopModelContainer label, 
+div#otherMonitor1BrandContainer label, div#otherMonitor1ModelContainer label, 
+div#otherMonitor2BrandContainer label, div#otherMonitor2ModelContainer label, 
+div#otherDockContainer label, div#otherAdaptorContainer label, 
+div#otherPhoneBrandContainer label, div#otherPhoneModelContainer label
+{
+    margin-left: 15px; 
+}
+
 div#fullNameContainer input, div#companyDetailContainer input, div#employeeContactContainer input {
     margin-right: 25px; 
 }
 
-div#ITEquipSummaryContainer {
-    padding-bottom: 20px; 
-    border-bottom: 5px solid #d87093;
+div#workOrderStatus, div#phoneWorkOrderStatus {
+    margin-bottom: 15px; 
 }
 
 div.checkbox-row input {
     margin: 10px 5px 10px 5px; 
 }
+
+.row { /* Allow Other Container to be in the same row as Drop-Down Menu */
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+  
+.row label {
+    flex-basis: 150px; 
+    /* text-align: right;  */
+    margin-right: 5px;
+}
+

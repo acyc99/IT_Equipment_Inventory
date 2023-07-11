@@ -20,6 +20,20 @@ router.post('/check-work-order', async (req, res) => {
   }
 });
 
+router.post('check-phone-work-order', async (req, res) => {
+  const { PhoneWO } = req.body;
+
+  try {
+    // Check if the work order number already exists
+    const phoneWorkOrderExists = await ITEquipment.checkPhoneWorkOrderExists(PhoneWO);
+
+    res.status(200).json({ exists: phoneWorkOrderExists });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+})
+
 router.post('/', async (req, res) => {
 
   try {
