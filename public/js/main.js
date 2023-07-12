@@ -112,14 +112,7 @@ handleRadioSelection = () => {
 }
 
 notifyDockAndAdaptorSelection = () => {
-    // Requires Global Variables (Checkbox Values and div Containers)   
-    
-    // Notify user about 1 of 2 options can be selected, not both 
-    // if (dockingStation.checked && adaptor.checked) {
-    //     alert("User should only be assigned either a docking station or a USB-C to HDMI Adaptor!");
-    // }
-    
-    // OR Block a checkbox if another checkbox is selected 
+    // Block a checkbox if another checkbox is selected 
     if (adaptor.checked) {
         dockingStation.disabled = true;
     } else if (dockingStation.checked) {
@@ -128,6 +121,13 @@ notifyDockAndAdaptorSelection = () => {
         dockingStation.disabled = false;
         adaptor.disabled = false; 
     }
+
+    // OR Requires Global Variables (Checkbox Values and div Containers) 
+    // Notify user about 1 of 2 options can be selected, not both. 
+
+    // if (dockingStation.checked && adaptor.checked) {
+    //     alert("User should only be assigned either a docking station or a USB-C to HDMI Adaptor!");
+    // }
 }
 
 inputOtherOption = (optionId, containerId, inputId) => {
@@ -162,10 +162,10 @@ formatPhoneNumber = (elementId) => {
 
 document.getElementById('checkWorkOrderButton').addEventListener('click', (e) => {
     e.preventDefault();
-    const workOrderVal = workOrderInput.value.toString(); // Convert to string
+    const workOrderVal = workOrderInput.value.toString(); 
     const workOrderStatus = document.getElementById('workOrderStatus');
   
-    fetch('/inventory-entry/check-work-order', { // Updated URL
+    fetch('/inventory-entry/check-work-order', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -197,10 +197,10 @@ document.getElementById('checkWorkOrderButton').addEventListener('click', (e) =>
 
 document.getElementById('checkPhoneWorkOrderButton').addEventListener('click', (e) => {
     e.preventDefault();
-    const phoneWorkOrderVal = phoneWorkOrderInput.value.toString(); // Convert to string
+    const phoneWorkOrderVal = phoneWorkOrderInput.value.toString(); 
     const phoneWorkOrderStatus = document.getElementById('phoneWorkOrderStatus');
   
-    fetch('/inventory-entry/check-phone-work-order', { // Updated URL
+    fetch('/inventory-entry/check-phone-work-order', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -342,28 +342,3 @@ document.getElementById('formId').addEventListener('submit', (e) => {
             return;
         } 
 });
-
-// document.getElementById('formId').addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const form = e.target;
-//     const formData = new FormData(form);
-  
-//     fetch('/inventory-entry', {
-//         method: 'POST',
-//         body: formData,
-//       })
-//         .then(response => {
-//           if (!response.ok) {
-//             throw new Error('Network response was not OK');
-//           }
-//           return response.json();
-//         })
-//         .then(data => {
-//           alert(data.message); // Display the success or error message in an alert
-//         })
-//         .catch(error => {
-//           console.error(error);
-//           alert('An error occurred'); // Display a generic error message in case of network or server error
-//         });
-// });
-  
