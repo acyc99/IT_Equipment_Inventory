@@ -5,7 +5,11 @@ A web application that
 1. Run `nodemon app.js`
 2. Open a browser and type `localhost:9999/inventory-entry` or click on http://localhost:9999/inventory-entry
 
-### db-config.js File (Personal Configuration File)
+### Database Configuration File 
+The **db-config.js** file is saved in **config** folder. </br>
+The configuration file contains information to establish connection to the database. 
+**it_equipment_inventory** is a database created in MySQL. 
+
 ``` JavaScript
 // Connect to Database 
 module.exports = {
