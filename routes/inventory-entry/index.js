@@ -11,16 +11,16 @@ router.post('/check-work-order', async (req, res) => {
 
   try {
     // Check if the work order number already exists
-    const workOrderExists = await ITEquipment.checkWorkOrderExists(ITEquipmentWO);
+    const itEquipmentWorkOrderExists = await ITEquipment.checkWorkOrderExists(ITEquipmentWO);
 
-    res.status(200).json({ exists: workOrderExists });
+    res.status(200).json({ exists: itEquipmentWorkOrderExists });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
   }
 });
 
-router.post('check-phone-work-order', async (req, res) => {
+router.post('/check-phone-work-order', async (req, res) => {
   const { PhoneWO } = req.body;
 
   try {
@@ -34,22 +34,97 @@ router.post('check-phone-work-order', async (req, res) => {
   }
 })
 
+// router.post('/', async (req, res) => {
+
+//   try {
+//     // Check if the work order number already exists
+//     const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
+
+//     if (itEquipmentSuccess && phoneSuccess) {
+//       return res.redirect('/submission-result?success=true');
+//     } else {
+//       return res.redirect('/submission-result?success=false');
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     return res.redirect('/submission-result?success=false');
+//   }
+// });
+
+// router.post('/', async (req, res) => {
+//   try {
+//     // Bolean returned to check whether the work order number entered is already in the database 
+//     const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
+//     console.log(itEquipmentSuccess); 
+//     return res.redirect(`/submission-result?itEquipmentSuccess=${itEquipmentSuccess}&phoneSuccess=${phoneSuccess}`);
+//   } catch (error) {
+//     console.error(error);
+//     return res.redirect('/submission-result?itEquipmentSuccess=false&phoneSuccess=false');
+//   }
+// });
+
+// router.post('/', async (req, res) => {
+//   try {
+//     // Bolean returned to check whether the work order number entered is already in the database 
+//     const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
+//     console.log(itEquipmentSuccess);
+//     const itSuccess = itEquipmentSuccess.toString();
+//     const pSuccess = phoneSuccess.toString();
+//     return res.redirect(`/submission-result?itEquipmentSuccess=${itSuccess}&phoneSuccess=${pSuccess}`);
+//   } catch (error) {
+//     console.error(error);
+//     return res.redirect('/submission-result?itEquipmentSuccess=false&phoneSuccess=false');
+//   }
+// });
+
+// router.post('/', async (req, res) => {
+//   try {
+//     // Boolean returned to check whether the work order number entered is already in the database 
+//     const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
+//     console.log(itEquipmentSuccess);
+//     return res.redirect(`/submission-result?itEquipmentSuccess=${itEquipmentSuccess}&phoneSuccess=${phoneSuccess}`);
+//   } catch (error) {
+//     console.error(error);
+//     return res.redirect('/submission-result?itEquipmentSuccess=false&phoneSuccess=false');
+//   }
+// });
+
+// router.post('/', async (req, res) => {
+//   try {
+//     // Boolean returned to check whether the work order number entered is already in the database 
+//     const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
+//     const itSuccess = itEquipmentSuccess ? 'true' : 'false';
+//     const pSuccess = phoneSuccess ? 'true' : 'false';
+//     return res.redirect(`/submission-result?itEquipmentSuccess=${itSuccess}&phoneSuccess=${pSuccess}`);
+//   } catch (error) {
+//     console.error(error);
+//     return res.redirect('/submission-result?itEquipmentSuccess=false&phoneSuccess=false');
+//   }
+// });
+
 router.post('/', async (req, res) => {
-
   try {
-    // Check if the work order number already exists
-    const { success } = await ITEquipment.saveDataToDB(req, res);
-
-    if (success) {
-      return res.redirect('/submission-result?success=true');
-    } else {
-      return res.redirect('/submission-result?success=false');
-    }
+    const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
+    const itSuccess = itEquipmentSuccess ? 'true' : 'false';
+    const pSuccess = phoneSuccess ? 'true' : 'false';
+    return res.render('submission-result', { itEquipmentSuccess: itSuccess, phoneSuccess: pSuccess });
   } catch (error) {
     console.error(error);
-    return res.redirect('/submission-result?success=false');
+    return res.render('submission-result', { itEquipmentSuccess: 'false', phoneSuccess: 'false' });
   }
 });
+
+
+// router.post('/', async (req, res) => {
+//   try {
+//     const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
+//     const queryParameters = new URLSearchParams({ itEquipmentSuccess, phoneSuccess }).toString();
+//     return res.redirect(`/submission-result?${queryParameters}`);
+//   } catch (error) {
+//     console.error(error);
+//     return res.redirect('/submission-result?itEquipmentSuccess=false&phoneSuccess=false');
+//   }
+// });
 
 module.exports = router;
 

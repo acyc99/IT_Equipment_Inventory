@@ -37,6 +37,7 @@ const workOrderInput = document.getElementById('workOrderInput');
 const phoneWorkOrderInput = document.getElementById('phoneWorkOrderInput'); 
 
 resetAll = () => {
+    document.getElementById('fullName').textContent = ""; 
     document.querySelectorAll('[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
     document.querySelectorAll('input[type="checkbox"][name="DockingStation"], input[type="checkbox"][name="Adaptor"]').forEach(checkbox => checkbox.disabled = false);
     document.querySelectorAll('input').forEach(input => input.value = ''); 
@@ -196,7 +197,7 @@ document.getElementById('checkWorkOrderButton').addEventListener('click', (e) =>
 
 document.getElementById('checkPhoneWorkOrderButton').addEventListener('click', (e) => {
     e.preventDefault();
-    const phoneWorkOrderVal = workOrderInput.value.toString(); // Convert to string
+    const phoneWorkOrderVal = phoneWorkOrderInput.value.toString(); // Convert to string
     const phoneWorkOrderStatus = document.getElementById('phoneWorkOrderStatus');
   
     fetch('/inventory-entry/check-phone-work-order', { // Updated URL

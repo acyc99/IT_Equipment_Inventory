@@ -1,13 +1,67 @@
+//- doctype html
+//- html(lang="en")
+//-   head
+//-     meta(charset="UTF-8")
+//-     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-     title Submission Result 
+//-   body 
+//-     if itEquipmentSuccess === 'true'
+//-       h1 Standard IT equipment data successfully saved to the database 
+//-     else
+//-       h1 Standard IT equipment data is NOT saved to the database
+//-     if phoneSuccess === 'true'
+//-       h1 Cell-phone data successfully saved to the database
+//-     else
+//-       h1 Cell phone data is NOT saved to the database
+
+//-     a(href='/inventory-entry') Go back to IT Equipment Inventory Form
+
 doctype html
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Submission Result 
-    body 
-        if success === 'true'
-            h1 Data successfully saved to database
-        else 
-            h1 Failed to save data to database 
-        
-        a(href='/inventory-entry') Go back to IT Equipment Inventory Form 
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Submission Result 
+  body 
+    if itEquipmentSuccess
+      h1 Standard IT equipment data successfully saved to the database 
+    else
+      h1 Failed to save standard IT equipment data to the database
+    if phoneSuccess
+      h1 Cell-phone data successfully saved to the database
+    else
+      h1 Failed to save cell phone data to the database
+
+    a(href='/inventory-entry') Go back to IT Equipment Inventory Form
+
+
+
+//- doctype html
+//- html(lang="en")
+//-     head
+//-         meta(charset="UTF-8")
+//-         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-         title Submission Result 
+//-     body 
+//-         if (itEquipmentSuccess === 'true') 
+//-             h1 Standard IT equipment data successfully saved to the database 
+//-         else if (itEquipmentSuccess === 'false' || itEquipmentSuccess === '')
+//-             h1 Standard IT equipment data is NOT saved to the database
+//-         if (phoneSuccess === 'true')
+//-             h1 Cell-phone data successfully saved to the database
+//-         else if (phoneSuccess === 'false' || phoneSuccess === '') 
+//-             h1 Cell phone data is NOT saved to the database
+
+//-         a(href='/inventory-entry') Go back to IT Equipment Inventory Form 
+
+
+        //- if (itEquipmentSuccess === 'true' && phoneSuccess === 'true')
+        //-     h1 Both standard IT equipment and cell-phone data are successfully saved to the database
+        //- else if (itEquipmentSuccess === 'true' && phoneSuccess === 'false')
+        //-     h1 Saved standard IT equipment data successfully, but failed to save cell phone data to the database
+        //- else if (itEquipmentSuccess === 'false' && phoneSuccess === 'true')
+        //-     h1 Saved cell phone data successfully, but failed to save standard IT equipment data to the database 
+        //- else if (itEquipmentSuccess === 'true')
+        //-     h1 Standard IT equipment data saved successfully
+        //- else 
+        //-     h1 Failed to save both standard IT equipment and cell-phone data are successfully saved to the database

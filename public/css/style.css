@@ -25,27 +25,15 @@ div#standardEquipmentInfoContainer {
     padding-bottom: 20px; 
 }
 
-div#laptopInfoContainer {
-    border-bottom: 3px dashed #d87093; 
-    padding-bottom: 10px; 
+div#phoneInfoContainer {
+    border-top: 5px dashed #d87093;
 }
 
 div#noteContainer {
     border-top: 5px solid #d87093; 
 }
 
-
-
-/* div#phoneInfoContainer {
-    padding-top: 20px;
-    border-top: 5px solid #d87093; 
-} */
-
 div#fullNameContainer, div#companyDetailContainer, div#employeeContactContainer, div#standardEquipmentInfoContainer, div#phoneInfoContainer {
-    /* display: flex; 
-    flex-direction: row;
-    align-items: center;
-    justify-content: center; */
     margin: 15px 0px 15px 0px; /* Top, Left, Bottom, Right */ 
 }
 
@@ -82,7 +70,6 @@ div.checkbox-row input {
   
 .row label {
     flex-basis: 150px; 
-    /* text-align: right;  */
     margin-right: 5px;
 }
 
