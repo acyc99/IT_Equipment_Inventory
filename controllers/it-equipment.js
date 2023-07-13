@@ -43,16 +43,31 @@ module.exports = {
       notes
     } = req.body;
     
-    const itEquipmentWorkOrderExists = await module.exports.checkWorkOrderExists(ITEquipmentWO);
-    const phoneWorkOrderExists = await module.exports.checkPhoneWorkOrderExists(PhoneWO);
-    
     let itEquipmentSuccess = false; 
     let phoneSuccess = false;
-    
-    if (itEquipmentWorkOrderExists) {
-      return { itEquipmentSuccess: false };
+
+    let itEquipmentWorkOrderExists;
+    let phoneWorkOrderExists
+
+    if (ITEquipmentWO === '') {
+      itEquipmentSuccess = undefined;
+    } else if (ITEquipmentWO) {
+      itEquipmentWorkOrderExists = await module.exports.checkWorkOrderExists(ITEquipmentWO);
     }
 
+    if (PhoneWO === '') {
+      phoneSuccess = undefined;
+    } else if (PhoneWO) {
+      phoneWorkOrderExists = await module.exports.checkPhoneWorkOrderExists(PhoneWO);
+    }
+
+    if (itEquipmentWorkOrderExists) {
+      itEquipmentSuccess = false;
+    }
+
+    if (phoneWorkOrderExists) {
+      phoneSuccess = false;
+    }
     
     if (firstName && lastName) {
       try {
@@ -70,138 +85,128 @@ module.exports = {
         
 
         // False to itEquipmentWorkOrderExists 
-        if (!itEquipmentWorkOrderExists) {
-          let itEquipmentWO;
+        if (!itEquipmentWorkOrderExists && ITEquipmentWO) {
     
-          if (ITEquipmentWO) {
-            const itPickUpDate = ITEquipmentPickUpDate ? new Date(ITEquipmentPickUpDate) : null;
-          
-            itEquipmentWO = await IT_Equip_WO.create({
-              user_id: users.user_id,
-              equip_work_order: ITEquipmentWO,
-              equip_pickup_date: itPickUpDate
+          const itPickUpDate = ITEquipmentPickUpDate ? new Date(ITEquipmentPickUpDate) : null;
+        
+          const itEquipmentWO = await IT_Equip_WO.create({
+            user_id: users.user_id,
+            equip_work_order: ITEquipmentWO,
+            equip_pickup_date: itPickUpDate
+          });
+        
+          if (laptopAssetTag) {
+            const laptops = await Laptop.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              laptop_asset_tag: laptopAssetTag,
+              laptop_serial_no: laptopSerialNumber,
+              laptop_brand: laptopBrand,
+              laptop_model: laptopModel,
+              other_laptop_brand: otherLaptopBrand,
+              other_laptop_model: otherLaptopModel
             });
-          
-            if (laptopAssetTag) {
-              const laptops = await Laptop.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                laptop_asset_tag: laptopAssetTag,
-                laptop_serial_no: laptopSerialNumber,
-                laptop_brand: laptopBrand,
-                laptop_model: laptopModel,
-                other_laptop_brand: otherLaptopBrand,
-                other_laptop_model: otherLaptopModel
-              });
-            }
-            
-            if (monitor1AssetTag) {
-              const monitors1 = await Monitor.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                monitor_asset_tag: monitor1AssetTag,
-                monitor_serial_no: monitor1SerialNumber,
-                monitor_brand: monitor1Brand,
-                monitor_model: monitor1Model,
-                other_monitor_brand: otherMonitor1Brand,
-                other_monitor_model: otherMonitor1Model
-              });
-            }
-            
-            if (monitor2AssetTag) {
-              const monitors2 = await Monitor.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                monitor_asset_tag: monitor2AssetTag,
-                monitor_serial_no: monitor2SerialNumber,
-                monitor_brand: monitor2Brand,
-                monitor_model: monitor2Model,
-                other_monitor_brand: otherMonitor2Brand,
-                other_monitor_model: otherMonitor2Model
-              });
-            }
-            
-            if (dockingStationAssetTag) {
-              const dockStations = await Docking_Station.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                dock_asset_tag: dockingStationAssetTag,
-                dock_brand_model: dockingStationBrandModel,
-                other_dock_brand_model: otherDockBrandModel
-              });
-            }
-            
-            if (adaptorAssetTag) {
-              const adaptors = await Adaptor.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                adaptor_asset_tag: adaptorAssetTag,
-                adaptor_brand_model: adaptorBrandModel,
-                other_adaptor_brand_model: otherAdaptorBrandModel
-              });
-            }
-            
-            if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
-              const mice = await Mouse.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                mouse_available: mouseAvailable  
-              });
-            }
-            
-            if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
-              const keyboards = await Keyboard.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                keyboard_available: keyboardAvailable
-              });
-            }
-            
-            if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
-              const locks = await Lock.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                lock_available: lockAvailable
-              });
-            }
-            
-            if (ITEquipmentName) {
-              const otherEquips = await Other_Equipment.create({
-                it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
-                other_equip_name: ITEquipmentName,
-                other_equip_asset_tag: equipmentAssetTag,
-                other_equip_serial_no: equipmentSerialNumber,
-                other_equip_brand_model: equipModelBrand
-              });
-            }
-  
-            itEquipmentSuccess = true; 
           }
+          
+          if (monitor1AssetTag) {
+            const monitors1 = await Monitor.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              monitor_asset_tag: monitor1AssetTag,
+              monitor_serial_no: monitor1SerialNumber,
+              monitor_brand: monitor1Brand,
+              monitor_model: monitor1Model,
+              other_monitor_brand: otherMonitor1Brand,
+              other_monitor_model: otherMonitor1Model
+            });
+          }
+          
+          if (monitor2AssetTag) {
+            const monitors2 = await Monitor.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              monitor_asset_tag: monitor2AssetTag,
+              monitor_serial_no: monitor2SerialNumber,
+              monitor_brand: monitor2Brand,
+              monitor_model: monitor2Model,
+              other_monitor_brand: otherMonitor2Brand,
+              other_monitor_model: otherMonitor2Model
+            });
+          }
+          
+          if (dockingStationAssetTag) {
+            const dockStations = await Docking_Station.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              dock_asset_tag: dockingStationAssetTag,
+              dock_brand_model: dockingStationBrandModel,
+              other_dock_brand_model: otherDockBrandModel
+            });
+          }
+          
+          if (adaptorAssetTag) {
+            const adaptors = await Adaptor.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              adaptor_asset_tag: adaptorAssetTag,
+              adaptor_brand_model: adaptorBrandModel,
+              other_adaptor_brand_model: otherAdaptorBrandModel
+            });
+          }
+          
+          if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
+            const mice = await Mouse.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              mouse_available: mouseAvailable  
+            });
+          }
+          
+          if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
+            const keyboards = await Keyboard.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              keyboard_available: keyboardAvailable
+            });
+          }
+          
+          if (itEquipmentWO && itEquipmentWO.it_equip_wo_id != null) {
+            const locks = await Lock.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              lock_available: lockAvailable
+            });
+          }
+          
+          if (ITEquipmentName) {
+            const otherEquips = await Other_Equipment.create({
+              it_equip_wo_id: itEquipmentWO.it_equip_wo_id,
+              other_equip_name: ITEquipmentName,
+              other_equip_asset_tag: equipmentAssetTag,
+              other_equip_serial_no: equipmentSerialNumber,
+              other_equip_brand_model: equipModelBrand
+            });
+          }
+
+          itEquipmentSuccess = true; 
         }
 
-        if (phoneWorkOrderExists) {
-          return { phoneSuccess: false };
-        }
-  
-        if (!phoneWorkOrderExists) {
-          let cellPhoneWO;
-  
-          if (PhoneWO) {
-            const cellPickUpDate = phonePickUpDate ? new Date(phonePickUpDate) : null;
-      
-            cellPhoneWO = await Cell_Phone_WO.create({
-              user_id: users.user_id,
-              phone_work_order: PhoneWO, 
-              phone_pickup_date: cellPickUpDate
+        if (!phoneWorkOrderExists && PhoneWO) {
+
+          const cellPickUpDate = phonePickUpDate ? new Date(phonePickUpDate) : null;
+    
+          const cellPhoneWO = await Cell_Phone_WO.create({
+            user_id: users.user_id,
+            phone_work_order: PhoneWO, 
+            phone_pickup_date: cellPickUpDate
+          });
+          
+          if (phoneAssetTag) {
+            const phones = await Cell_Phone.create({
+              phone_wo_id: cellPhoneWO.phone_wo_id,
+              phone_asset_tag: phoneAssetTag,
+              phone_imei: phoneIMEI,
+              phone_no: phoneNumber,
+              phone_brand: phoneBrand,
+              phone_model: phoneModel,
+              other_phone_brand: otherPhoneBrand,
+              other_phone_model: otherPhoneModel
             });
-            
-            if (phoneAssetTag) {
-              const phones = await Cell_Phone.create({
-                phone_wo_id: cellPhoneWO.phone_wo_id,
-                phone_asset_tag: phoneAssetTag,
-                phone_imei: phoneIMEI,
-                phone_no: phoneNumber,
-                phone_brand: phoneBrand,
-                phone_model: phoneModel,
-                other_phone_brand: otherPhoneBrand,
-                other_phone_model: otherPhoneModel
-              });
-            }
-      
-            phoneSuccess = true; 
           }
+  
+          phoneSuccess = true; 
         }
   
         if (notes && notes.trim() !== "") {

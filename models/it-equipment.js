@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         }); 
 
     const IT_Equip_WO = sequelize.define(
-        'it_equip_wo',
+        'it_equip_wos',
         {   
             it_equip_wo_id: {
                 type: DataTypes.INTEGER,
@@ -88,6 +88,9 @@ module.exports = (sequelize, DataTypes) => {
             monitor_model: DataTypes.STRING,
             other_monitor_brand: DataTypes.STRING,
             other_monitor_model: DataTypes.STRING
+        },
+        {
+            freezeTableName: true 
         }); 
 
     Monitor.belongsTo(IT_Equip_WO, {
@@ -107,6 +110,9 @@ module.exports = (sequelize, DataTypes) => {
             dock_asset_tag: DataTypes.INTEGER,
             dock_brand_model: DataTypes.STRING,
             other_dock_brand_model: DataTypes.STRING
+        },
+        {
+            freezeTableName: true 
         });
 
     Docking_Station.belongsTo(IT_Equip_WO, {
@@ -126,6 +132,9 @@ module.exports = (sequelize, DataTypes) => {
             adaptor_asset_tag: DataTypes.INTEGER,
             adaptor_brand_model: DataTypes.STRING,
             other_adaptor_brand_model: DataTypes.STRING
+        },
+        {
+            freezeTableName: true 
         });
 
     Adaptor.belongsTo(IT_Equip_WO, {
@@ -143,6 +152,9 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true
             },
             mouse_available: DataTypes.STRING
+        },
+        {
+            freezeTableName: true 
         });
 
     Mouse.belongsTo(IT_Equip_WO, {
@@ -160,6 +172,9 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true
             },
             keyboard_available: DataTypes.STRING
+        }, 
+        {
+            freezeTableName: true 
         });
 
     Keyboard.belongsTo(IT_Equip_WO, {
@@ -177,6 +192,9 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true
             },
             lock_available: DataTypes.STRING
+        },
+        {
+            freezeTableName: true 
         });
 
     Lock.belongsTo(IT_Equip_WO, {
@@ -186,7 +204,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     const Other_Equipment = sequelize.define(
-        'other_equip',
+        'other_equips',
         {
             other_equip_id: {
                 type: DataTypes.INTEGER,
@@ -197,6 +215,9 @@ module.exports = (sequelize, DataTypes) => {
             other_equip_asset_tag: DataTypes.INTEGER,
             other_equip_serial_no: DataTypes.STRING,
             other_equip_brand_model: DataTypes.STRING
+        },
+        {
+            freezeTableName: true 
         });
 
     Other_Equipment.belongsTo(IT_Equip_WO, {
@@ -206,7 +227,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     const Cell_Phone_WO = sequelize.define(
-        'cell_phone_wo',
+        'cell_phone_wos',
         {
             phone_wo_id: {
                 type: DataTypes.INTEGER,
@@ -218,6 +239,9 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.DATE,
                 allowNull: true
             }
+        },
+        {
+            freezeTableName: true 
         });
 
     Cell_Phone_WO.belongsTo(User, {
@@ -240,6 +264,9 @@ module.exports = (sequelize, DataTypes) => {
             phone_model: DataTypes.STRING,
             other_phone_brand: DataTypes.STRING,
             other_phone_model: DataTypes.STRING
+        },
+        {
+            freezeTableName: true 
         });
 
     Cell_Phone.belongsTo(Cell_Phone_WO, {
@@ -256,12 +283,14 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true
             },
             note_info: DataTypes.STRING
-        }
-    )
+        },
+        {
+            freezeTableName: true 
+        });
 
     Note.belongsTo(User, {
-        foreignKey: 'user_id', // Specify the foreign key column name
-        onDelete: 'CASCADE' // Deletion behavior (optional)
+        foreignKey: 'user_id', 
+        onDelete: 'CASCADE' 
     });
 
     return {User, IT_Equip_WO, Laptop, Monitor, Docking_Station, Adaptor, Mouse, Keyboard, Lock, Other_Equipment, Cell_Phone_WO, Cell_Phone, Note}; 

@@ -15,6 +15,10 @@ html(lang="en")
       h1 Standard IT equipment data saved successfully
     else if itEquipmentSuccess === 'undefined' && phoneSuccess === 'true'
       h1 Cell-phone data saved successfully 
+    else if itEquipmentSuccess === 'false' && phoneSuccess === 'undefined'
+      h1 Work order already exists, failed to save standard IT equipment data to the database 
+    else if itEquipmentSuccess === 'undefined' && phoneSuccess === 'false'
+      h1 Work order already exists, failed to save cell phone data to the database
     else 
       h1 Failed to save both standard IT equipment and cell-phone data to the database
 

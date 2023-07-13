@@ -37,8 +37,12 @@ router.post('/check-phone-work-order', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
-    const itSuccess = itEquipmentSuccess ? 'true' : 'false';
-    const pSuccess = phoneSuccess ? 'true' : 'false';
+    let itSuccess = itEquipmentSuccess === undefined ? 'undefined' : itEquipmentSuccess ? 'true' : 'false';
+    let pSuccess = phoneSuccess === undefined ? 'undefined' : phoneSuccess ? 'true' : 'false';
+
+    console.log(itSuccess);
+    console.log(pSuccess); 
+
     return res.render('submission-result', { itEquipmentSuccess: itSuccess, phoneSuccess: pSuccess });
   } catch (error) {
     console.error(error);
@@ -47,18 +51,6 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
-
-
-// router.post('/', async (req, res) => {
-//   try {
-//     const { itEquipmentSuccess, phoneSuccess } = await ITEquipment.saveDataToDB(req, res);
-//     const queryParameters = new URLSearchParams({ itEquipmentSuccess, phoneSuccess }).toString();
-//     return res.redirect(`/submission-result?${queryParameters}`);
-//   } catch (error) {
-//     console.error(error);
-//     return res.redirect('/submission-result?itEquipmentSuccess=false&phoneSuccess=false');
-//   }
-// });
 
 
 // return res.status(200).json({ exists: true, message: 'The work order number is duplicated and cannot be saved to the database!' });
