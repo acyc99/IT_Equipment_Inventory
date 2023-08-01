@@ -225,4 +225,8 @@ module.exports = {
       return { itEquipmentSuccess: false, phoneSuccess: false }; 
     }
   },
+
+  // retrieveDataFromDB: async(req, res) => {
+  //   const 
+  // }
 }  

@@ -6,7 +6,7 @@ html(lang="en")
         link(rel="stylesheet", href="../public/css/style.css")
         title IT Equipment Inventory
     body 
-        h1 IT Equipment Inventory 
+        h1.dashed-border IT Equipment Inventory 
         form#formId(action='/inventory-entry', method='POST')
             button(type="button", onclick="resetAll()") Reset 
             div#clientDetailContainer
@@ -230,7 +230,7 @@ html(lang="en")
                 label(for="keyboardAvailable") Yes 
 
             div#lockInfoContainer(style="display: none;")
-                h3 Keyboard Available  
+                h3 Lock Available  
                 input#lockYes(type="radio", name="lockAvailable", value="Yes", checked) 
                 label(for="lockAvailable") Yes 
 
@@ -300,10 +300,12 @@ html(lang="en")
                 h2 Note / Comment   
                 textarea(id="description", rows="5", cols="50", placeholder="Type any notes here...", name="notes") 
             
-            p Click "Submit" to save inventory information to MySQL database and generate a PDF version with its QR code 
+            p Click "Submit" to save inventory information to MySQL database  
             button#submit(type="submit") Submit 
 
         script(src="../public/js/main.js")
+
+//- and generate a PDF version with its QR code
 
 //- Draft: 
 //- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"

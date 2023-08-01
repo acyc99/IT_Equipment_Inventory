@@ -17,11 +17,11 @@ const keyboardAvailable = document.getElementById("keyboardYes");
 const lockAvailable = document.getElementById("lockYes");
 
 // div Containers 
-const monitor1InfoContainer = document.getElementById('monitor1InfoContainer'); 
-const monitor2InfoContainer = document.getElementById('monitor2InfoContainer'); 
 const standardEquipmentInfoContainer = document.getElementById('standardEquipmentInfoContainer'); 
 const laptopInfoContainer = document.getElementById('laptopInfoContainer'); 
 const monitorInfoContainer = document.getElementById('monitorInfoContainer'); 
+const monitor1InfoContainer = document.getElementById('monitor1InfoContainer'); 
+const monitor2InfoContainer = document.getElementById('monitor2InfoContainer'); 
 const dockingStationInfoContainer = document.getElementById('dockingStationInfoContainer'); 
 const adaptorInfoContainer = document.getElementById('adaptorInfoContainer');
 const mouseInfoContainer = document.getElementById('mouseInfoContainer');
@@ -32,6 +32,8 @@ const otherEquipmentInfoContainer = document.getElementById('otherEquipmentInfoC
 
 const itEquipcheckboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other];
 const checkboxes = [laptop, monitor, dockingStation, adaptor, mouse, keyboard, lock, other, phone];
+const containers = [laptopInfoContainer, monitorInfoContainer, monitor1InfoContainer, monitor2InfoContainer, dockingStationInfoContainer, adaptorInfoContainer,
+                    mouseInfoContainer, keyboardInfoContainer, lockInfoContainer, otherEquipmentInfoContainer, phoneInfoContainer]
 
 const workOrderInput = document.getElementById('workOrderInput');
 const phoneWorkOrderInput = document.getElementById('phoneWorkOrderInput'); 
@@ -93,6 +95,20 @@ handleCheckboxSelection = () => {
     lock.checked = lock.checked ? true : false; 
     lockAvailable.value = lock.checked ? "Yes" : "No"; 
 
+    const setBottomBorder = (container, displayValue) => {
+        container.style.borderBottom = displayValue === "block" ? "1px solid #FF0056" : "none"; 
+    };
+
+    setBottomBorder(laptopInfoContainer, laptopInfoContainer.style.display);
+    setBottomBorder(monitorInfoContainer, monitorInfoContainer.style.display);
+    setBottomBorder(dockingStationInfoContainer, dockingStationInfoContainer.style.display);
+    setBottomBorder(adaptorInfoContainer, adaptorInfoContainer.style.display);
+    setBottomBorder(mouseInfoContainer, mouseInfoContainer.style.display);
+    setBottomBorder(keyboardInfoContainer, keyboardInfoContainer.style.display);
+    setBottomBorder(lockInfoContainer, lockInfoContainer.style.display);
+    // setBorder(phoneInfoContainer, phoneInfoContainer.style.display);
+    setBottomBorder(otherEquipmentInfoContainer, otherEquipmentInfoContainer.style.display);
+
     return allowNull; 
 }
 
@@ -109,6 +125,9 @@ handleRadioSelection = () => {
         monitor1InfoContainer.style.display = "none"; 
         monitor2InfoContainer.style.display = "none"; 
     }
+
+    monitor1InfoContainer.style.borderBottom = monitor1InfoContainer.style.display === "block" ? "1px solid #ff4500" : "none";
+    monitor2InfoContainer.style.borderBottom = monitor2InfoContainer.style.display === "block" ? "1px solid #ff4500" : "none";
 }
 
 notifyDockAndAdaptorSelection = () => {

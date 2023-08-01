@@ -1,9 +1,25 @@
 body {
-    background-color: pink;
+    background-color: #00488E; /*00488E   0E65A3*/
+    color: #E9F2F9; 
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: left;
+} 
+
+form {
+    padding: 60px; 
+    background:
+        linear-gradient(to right, #FF4500 6px, transparent 4px) 0 0, /* Top-left corner to the right */
+        linear-gradient(to right, #FF4500 6px, transparent 4px) 0 100%, /* Bottom-left corner to the right */
+        linear-gradient(to left, #FF4500 6px, transparent 4px) 100% 0, /* Top-right corner to the right */
+        linear-gradient(to left, #FF4500 6px, transparent 4px) 100% 100%, /* Bottom-right corner to the right */
+        linear-gradient(to bottom, #FF4500 6px, transparent 4px) 0 0, /* Top-left corner and going downwards */
+        linear-gradient(to bottom, #FF4500 6px, transparent 4px) 100% 0, /* Top-right corner and going downwards */
+        linear-gradient(to top, #FF4500 6px, transparent 4px) 0 100%, /* Bottom-left corner and going upwards */
+        linear-gradient(to top, #FF4500 6px, transparent 4px) 100% 100%; /* Bottom-right corner and going upwards */
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
 }
 
 h2 {
@@ -12,25 +28,38 @@ h2 {
 
 div#clientDetailContainer {
     padding: 10px;
-    border-bottom: 5px solid #d87093;
+    border-bottom: 5px solid #FF0056;
 }
 
 div#ITEquipSummaryContainer {
-    padding-bottom: 10px; 
+    padding-bottom: 15px; 
 }
 
 div#standardEquipmentInfoContainer {
-    border-top: 5px dashed #d87093;
-    border-bottom: 3px dashed #d87093;  
+    border-top: 5px dashed #FF0056;
+    border-bottom: 3px dashed #FF0056;  
     padding-bottom: 20px; 
 }
 
+div#laptopInfoContainer, 
+div#monitorInfoContainer, div#monitor1InfoContainer, div#monitor2InfoContainer, 
+div#dockingStationInfoContainer, div#adaptorInfoContainer,
+div#mouseInfoContainer, div#keyboardInfoContainer, div#lockInfoContainer
+{
+    padding-bottom: 20px;
+}
+
+div#otherEquipmentInfoContainer {
+    padding-bottom: 10px;
+}
+
 div#phoneInfoContainer {
-    border-top: 5px dashed #d87093;
+    border-top: 5px dashed #FF0056;
+    padding-bottom: 5px; 
 }
 
 div#noteContainer {
-    border-top: 5px solid #d87093; 
+    border-top: 5px solid #FF0056; 
 }
 
 div#fullNameContainer, div#companyDetailContainer, div#employeeContactContainer, div#standardEquipmentInfoContainer, div#phoneInfoContainer {
@@ -72,4 +101,3 @@ div.checkbox-row input {
     flex-basis: 150px; 
     margin-right: 5px;
 }
-
