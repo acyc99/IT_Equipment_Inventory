@@ -1,35 +1,46 @@
 # IT Equipment Inventory 
 
 ## Introduction 
+IT Equipment Inventory is a web application that uses the Pug HTML template and CSS for the front-end, JavaScript for the back-end, and MySQL as the database. It is designed to record and manage IT equipment. 
 
-[Watch Project Video](https://clipchamp.com/watch/E3ln4n9urXS)
-
-### Technologies Used (Languages)
-* Pug Template 
+### Technologies Used 
+* Pug HTML Template 
 * Cascading Style Sheets (CSS)
-* JavaScript (Node.js) - Express Server 
+* JavaScript (Express.js)
 * MySQL and Sequalize 
 
+### Entity-Relationship Diagram (ERD)
+
+
 ## Features 
+* Inventory Management: Easily add IT equipment entries and avoid duplicate work orders
+* Database Storage: Use Sequelize to insert data into MySQL database 
+
+### Planned Improvements / Future Features 
+* User Authentication 
+* Display all the records 
+* Search and Filter 
+* Edit / Delete 
+* Responsive Design 
 
 ## Getting Started
 1. Clone this IT_Equipment_Inventory repository: `git clone https://github.com/acyc99/IT_Equipment_Inventory.git`
-2. Install the required JavaScript packages: <br/> 
+2. Install the project dependencies: `npm install`
     <!-- Node Package Manager (npm) -->
+    <!-- 
     * Express: `npm install express`
     * Nodemon: `npm install nodemon`
     * Pug: `npm install pug`
     * Pug's Command Line Interface (CLI): `npm install -g pug-cli`
     * Sequelize: `npm install sequelize`
-    * MySQL2: `npm install mysql2`
-3. Add a [database configuration file](#database-configuration-file) 
-4. Run `nodemon app.js`
-5. Open a browser and type `localhost:9999/inventory-entry` or click on http://localhost:9999/inventory-entry
+    * MySQL2: `npm install mysql2` 
+    -->
+3. Configure the database settings (see [Database Configuration](#database-configuration)) 
+4. Start the web application: `nodemon app.js`
+5. IT Equipment Inventory application is running on `http://localhost:9999/inventory-entry`
 
-### Database Configuration File 
-The **db-config.js** file is saved in **config** folder. </br>
-The configuration file contains information to establish connection to the database. 
-**it_equipment_inventory** is a database created in MySQL. 
+### Database Configuration
+Create a **config** folder to hold the **db-config.js** file, which contains the information to establish a connection with the database. 
 
 ``` JavaScript
 // Connect to Database 
@@ -37,10 +48,12 @@ module.exports = {
     HOST: 'localhost',
     USER: 'root',
     PASSWORD: '',
-    DATABASE: 'it_equipment_inventory',
+    DATABASE: 'it_equipment_inventory', // The database created in MySQL 
     DIALECT: 'mysql'
 }
 ```
 
-## Reference 
-* 
+## Usage 
+1. Open a web browser and go to http://localhost:9999/inventory-entry
+2. Start entering IT equipment entries (note: there are some required fields)
+3. Add IT equipment into the inventory 
