@@ -1,5 +1,7 @@
 # IT Equipment Inventory 
 
+https://github.com/acyc99/IT_Equipment_Inventory/assets/105580341/ae1fe2b3-00d4-498a-9239-834d492ad4af
+
 ## Introduction 
 IT Equipment Inventory is a web application that uses the Pug HTML template and CSS for the front-end, JavaScript for the back-end, and MySQL as the database. It is designed to record and manage IT equipment. 
 
@@ -56,4 +58,4 @@ module.exports = {
 ## Usage 
 1. Open a web browser and go to http://localhost:9999/inventory-entry
 2. Start entering IT equipment entries (note: there are some required fields)
-3. Add IT equipment into the inventory 
+3. Add IT equipment into the inventory
