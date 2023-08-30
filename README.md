@@ -12,11 +12,11 @@ IT Equipment Inventory is a web application that uses the Pug HTML template and 
 * MySQL and Sequalize 
 
 ### Entity-Relationship Diagram (ERD)
-
+![ERD](./public/images/erd.png)
 
 ## Features 
-* Inventory Management: Easily add IT equipment entries and avoid duplicate work orders
-* Database Storage: Use Sequelize to insert data into MySQL database 
+* **Inventory Management**: Easily add IT equipment entries and avoid duplicate work orders
+* **Database Storage**: Use Sequelize to insert data into MySQL database 
 
 ### Planned Improvements / Future Features 
 * User Authentication 
